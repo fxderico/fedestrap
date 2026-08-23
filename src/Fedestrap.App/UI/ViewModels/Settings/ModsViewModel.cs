@@ -783,9 +783,16 @@ public ICommand PickCursorColorCommand { get; }
 				App.Logger.WriteLine("ModsViewModel::FontPreview", "The selected font has no previewable typeface");
 				return;
 			}
-			_selectedPreviewFontFamilyName = selected.Family;
-			_selectedPreviewFontFamily = family;
-			OnPropertyChanged(nameof(FontPreviewFontFamily));
+			// DownloadAsync's call chain ends in a ConfigureAwait(false) (inside
+			// MaintainCacheAsync), so execution resumes here on a thread pool
+			// thread, not the UI thread - raising PropertyChanged from off-thread
+			// is exactly why the preview never visibly updated. Marshal back.
+			((DispatcherObject)System.Windows.Application.Current).Dispatcher.Invoke((Action)delegate
+			{
+				_selectedPreviewFontFamilyName = selected.Family;
+				_selectedPreviewFontFamily = family;
+				OnPropertyChanged(nameof(FontPreviewFontFamily));
+			});
 		}
 		catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
 		{

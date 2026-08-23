@@ -68,6 +68,19 @@
                     <ui:TextBox x:Name="BorderC2" Width="92" Margin="8,0,0,0" PlaceholderText="#4f46e5"/>
                 </StackPanel>
 
+                <TextBlock Text="Profile picture" FontWeight="SemiBold" Margin="0,14,0,4"/>
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="72" Height="72" Margin="0,0,10,0">
+                        <Ellipse.Fill>
+                            <ImageBrush x:Name="AvatarPreviewBrush" Stretch="UniformToFill"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <StackPanel VerticalAlignment="Center">
+                        <ui:Button Content="Import image" Icon="Image24" Click="ImportAvatar_Click"/>
+                        <ui:Button Content="Remove" Appearance="Secondary" Margin="0,6,0,0" Click="RemoveAvatar_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
                 <TextBlock Text="Banner" FontWeight="SemiBold" Margin="0,14,0,4"/>
                 <Border x:Name="BannerPreview" Height="96" CornerRadius="8" Background="#22000000" Margin="0,0,0,6"/>
                 <StackPanel Orientation="Horizontal">

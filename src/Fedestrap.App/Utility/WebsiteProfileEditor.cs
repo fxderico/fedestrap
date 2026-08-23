@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -73,6 +74,7 @@ namespace Fedestrap.Utility
         private const int MaxLabel = 40;
         private const int MaxLinks = 5;
         private const int MaxBannerBytes = 1_000_000;
+        private const int MaxAvatarBytes = 400_000;
         private const int MaxBannerSourceBytes = 50 * 1024 * 1024;
         private const long MaxBannerPixels = 40_000_000;
         private const int MaxProfileResponseBytes = 4 * 1024 * 1024;
@@ -197,6 +199,9 @@ namespace Fedestrap.Utility
                 if (d.Banner != null && d.Banner.Length <= 1_400_000)
                     payload["banner"] = d.Banner;
 
+                if (d.Avatar != null && d.Avatar.Length <= 560_000 && (d.Avatar.Length == 0 || d.Avatar.StartsWith("data:image/", StringComparison.OrdinalIgnoreCase)))
+                    payload["avatar"] = d.Avatar;
+
                 string json = JsonSerializer.Serialize(payload);
                 var (outcome, error) = await WebsiteSaveQueue.PostLatestAsync(json, CancellationToken.None).ConfigureAwait(false);
 
@@ -313,6 +318,71 @@ namespace Fedestrap.Utility
             catch (Exception ex)
             {
                 App.Logger.WriteException("WebsiteProfileEditor::Banner", ex);
+                return (false, "", "Could not read that image.");
+            }
+        }
+
+        // Same idea as BuildBannerDataUrl, but square-cropped (center crop) and
+        // capped smaller, since it's an avatar rather than a wide banner.
+        public static (bool Ok, string DataUrl, string? Error) BuildAvatarDataUrl(string filePath)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+                    return (false, "", "File not found.");
+                if (new FileInfo(filePath).Length > MaxBannerSourceBytes)
+                    return (false, "", "Image is too large.");
+
+                BitmapSource src;
+                using (var fs = File.OpenRead(filePath))
+                {
+                    var headerDecoder = BitmapDecoder.Create(fs, BitmapCreateOptions.PreservePixelFormat | BitmapCreateOptions.IgnoreColorProfile | BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
+                    if (headerDecoder.Frames.Count == 0)
+                        return (false, "", "Could not read that image.");
+                    int width = headerDecoder.Frames[0].PixelWidth;
+                    int height = headerDecoder.Frames[0].PixelHeight;
+                    if (width <= 0 || height <= 0 || width > 16384 || height > 16384 || (long)width * height > MaxBannerPixels)
+                        return (false, "", "Image dimensions are too large.");
+                    fs.Position = 0;
+                    var decoder = BitmapDecoder.Create(fs, BitmapCreateOptions.PreservePixelFormat | BitmapCreateOptions.IgnoreColorProfile, BitmapCacheOption.OnLoad);
+                    if (decoder.Frames.Count == 0) return (false, "", "Could not read that image.");
+                    src = decoder.Frames[0];
+                }
+
+                // center-crop to a square before scaling
+                int cropSize = Math.Min(src.PixelWidth, src.PixelHeight);
+                int cropX = (src.PixelWidth - cropSize) / 2;
+                int cropY = (src.PixelHeight - cropSize) / 2;
+                BitmapSource square = new CroppedBitmap(src, new Int32Rect(cropX, cropY, cropSize, cropSize));
+
+                int maxSide = 512;
+                double scale = square.PixelWidth > maxSide ? (double)maxSide / square.PixelWidth : 1.0;
+
+                for (int quality = 85; quality >= 35; quality -= 10)
+                {
+                    BitmapSource frame = square;
+                    if (scale < 1.0)
+                        frame = new TransformedBitmap(square, new ScaleTransform(scale, scale));
+
+                    var converted = new FormatConvertedBitmap(frame, PixelFormats.Bgr24, null, 0);
+                    var enc = new JpegBitmapEncoder { QualityLevel = quality };
+                    enc.Frames.Add(BitmapFrame.Create(converted));
+
+                    using var ms = new MemoryStream();
+                    enc.Save(ms);
+
+                    byte[] bytes = ms.ToArray();
+                    if (bytes.Length <= MaxAvatarBytes)
+                        return (true, "data:image/jpeg;base64," + Convert.ToBase64String(bytes), null);
+
+                    scale = scale < 1.0 ? scale * 0.85 : 0.85;
+                }
+
+                return (false, "", "Image is too large even after compression.");
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException("WebsiteProfileEditor::Avatar", ex);
                 return (false, "", "Could not read that image.");
             }
         }

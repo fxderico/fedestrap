@@ -28,6 +28,8 @@ namespace Fedestrap.UI.Elements.ContextMenu
         private readonly ObservableCollection<ProfileLinkRow> _links = new();
         private string? _bannerChange;
         private int _bannerPreviewVersion;
+        private string? _avatarChange;
+        private int _avatarPreviewVersion;
 
         public bool Saved { get; private set; }
 
@@ -91,6 +93,9 @@ namespace Fedestrap.UI.Elements.ContextMenu
             _bannerChange = null;
             await SetBannerPreviewAsync(d.Banner);
 
+            _avatarChange = null;
+            await SetAvatarPreviewAsync(d.Avatar);
+
             StatusText.Text = "";
         }
 
@@ -140,6 +145,39 @@ namespace Fedestrap.UI.Elements.ContextMenu
             BannerPreview.Background = new SolidColorBrush(Color.FromArgb(0x22, 0, 0, 0));
         }
 
+        private async void ImportAvatar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dlg = new Microsoft.Win32.OpenFileDialog
+                {
+                    Filter = "Images|*.png;*.jpg;*.jpeg;*.webp;*.bmp;*.gif",
+                    Multiselect = false
+                };
+                if (dlg.ShowDialog() != true) return;
+
+                StatusText.Text = "Processing image...";
+                var (ok, dataUrl, err) = WebsiteProfileEditor.BuildAvatarDataUrl(dlg.FileName);
+                if (!ok) { StatusText.Text = err ?? "Could not read that image."; return; }
+
+                _avatarChange = dataUrl;
+                await SetAvatarPreviewAsync(dataUrl);
+                StatusText.Text = "";
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException("ProfileEditorWindow::ImportAvatar", ex);
+                StatusText.Text = "Could not import that image.";
+            }
+        }
+
+        private void RemoveAvatar_Click(object sender, RoutedEventArgs e)
+        {
+            _avatarPreviewVersion++;
+            _avatarChange = "";
+            AvatarPreviewBrush.ImageSource = null;
+        }
+
         private void AddLink_Click(object sender, RoutedEventArgs e)
         {
             if (_links.Count >= 5) return;
@@ -183,7 +221,8 @@ namespace Fedestrap.UI.Elements.ContextMenu
                     DisplayName = DisplayNameBox.Text ?? "",
                     Status = StatusBox.Text ?? "",
                     About = AboutBox.Text ?? "",
-                    Banner = _bannerChange
+                    Banner = _bannerChange,
+                    Avatar = _avatarChange
                 };
 
                 string key = GradKeys[Math.Max(0, GradientCombo.SelectedIndex)];
@@ -258,6 +297,33 @@ namespace Fedestrap.UI.Elements.ContextMenu
             {
                 if (version == _bannerPreviewVersion)
                     BannerPreview.Background = new SolidColorBrush(Color.FromArgb(0x22, 0, 0, 0));
+            }
+        }
+
+        private async Task SetAvatarPreviewAsync(string? url)
+        {
+            int version = ++_avatarPreviewVersion;
+            try
+            {
+                if (string.IsNullOrEmpty(url))
+                {
+                    if (version == _avatarPreviewVersion)
+                        AvatarPreviewBrush.ImageSource = null;
+                    return;
+                }
+
+                string resolved = url.StartsWith("data:", StringComparison.OrdinalIgnoreCase) || url.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                    ? url
+                    : App.WebsiteBaseUrl.TrimEnd('/') + (url.StartsWith("/") ? url : "/" + url);
+                BitmapSource? bi = await GradientWebsite.LoadBannerImageAsync(resolved);
+
+                if (version == _avatarPreviewVersion)
+                    AvatarPreviewBrush.ImageSource = bi;
+            }
+            catch
+            {
+                if (version == _avatarPreviewVersion)
+                    AvatarPreviewBrush.ImageSource = null;
             }
         }
 
