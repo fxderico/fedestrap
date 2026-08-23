@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<RootNamespace>Fedestrap.Platform.Linux</RootNamespace>
+		<AssemblyName>Fedestrap.Platform.Linux</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Fedestrap.Core\Fedestrap.Core.csproj" />
+		<ProjectReference Include="..\Fedestrap.Platform.Abstractions\Fedestrap.Platform.Abstractions.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Tomlyn" Version="2.10.1" />
+	</ItemGroup>
+</Project>

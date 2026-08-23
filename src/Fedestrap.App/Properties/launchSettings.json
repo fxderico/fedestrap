@@ -1,0 +1,43 @@
+﻿{
+    "profiles": {
+        "Fedestrap (Launch)": {
+            "commandName": "Project"
+        },
+        "Fedestrap (Quiet Launch)": {
+            "commandName": "Project",
+            "commandLineArgs": "-quiet"
+        },
+        "Fedestrap (Install)": {
+            "commandName": "Project",
+            "commandLineArgs": "-install"
+        },
+        "Fedestrap (Uninstall)": {
+            "commandName": "Project",
+            "commandLineArgs": "-uninstall"
+        },
+        "Fedestrap (Quiet Uninstall)": {
+            "commandName": "Project",
+            "commandLineArgs": "-uninstall -quiet"
+        },
+        "Fedestrap (Menu)": {
+            "commandName": "Project",
+            "commandLineArgs": "-menu"
+        },
+        "Fedestrap (Deeplink)": {
+            "commandName": "Project",
+            "commandLineArgs": "-player \"roblox://experiences/start?placeId=286090429\""
+        },
+        "Fedestrap (Studio Launch)": {
+            "commandName": "Project",
+            "commandLineArgs": "-studio"
+        },
+        "Fedestrap (Watcher)": {
+            "commandName": "Project",
+            "commandLineArgs": "-watcher"
+        },
+        "Fedestrap (Bloxshade)": {
+            "commandName": "Project",
+            "commandLineArgs": "-bloxshade"
+        }
+    }
+}

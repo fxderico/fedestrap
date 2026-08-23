@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<RootNamespace>Fedestrap.Core</RootNamespace>
+		<AssemblyName>Fedestrap.Core</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Fedestrap.Platform.Abstractions\Fedestrap.Platform.Abstractions.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="ExtensionManifests\*.json" CopyToOutputDirectory="PreserveNewest" />
+		<Content Include="..\Fedestrap.App\Models\Persistable\AppSettings.cs" Link="Catalog\AppSettings.cs" CopyToOutputDirectory="PreserveNewest" Visible="false" />
+		<Content Include="..\Fedestrap.App\UI\Elements\Settings\SearchCatalog.cs" Link="Catalog\SearchCatalog.cs" CopyToOutputDirectory="PreserveNewest" Visible="false" />
+		<Content Include="..\Fedestrap.App\UI\Elements\Settings\Pages\*.xaml" Link="Catalog\Pages\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" Visible="false" />
+	</ItemGroup>
+</Project>

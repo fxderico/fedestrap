@@ -1,0 +1,14 @@
+﻿<Project>
+
+	<PropertyGroup>
+		<FedestrapVersion>1.1.2.0</FedestrapVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version Condition="'$(Version)' == ''">$(FedestrapVersion)</Version>
+		<FileVersion>$(Version)</FileVersion>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<InformationalVersion>$(Version)</InformationalVersion>
+	</PropertyGroup>
+
+</Project>
