@@ -1,4 +1,4 @@
-﻿<base:WpfUiWindow x:Class="Fedestrap.UI.Elements.Settings.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:base="clr-namespace:Fedestrap.UI.Elements.Base" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:dmodels="clr-namespace:Fedestrap.UI.ViewModels.Settings" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:pages="clr-namespace:Fedestrap.UI.Elements.Settings.Pages" xmlns:resources="clr-namespace:Fedestrap.Resources" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" xmlns:media="clr-namespace:System.Windows.Media.Animation;assembly=PresentationCore" Closed="WpfUiWindow_Closed" Closing="WpfUiWindow_Closing" Loaded="MainWindow_Loaded" PreviewMouseWheel="OnZoomWheel" Title="{x:Static resources:Strings.Menu_Title}" Width="1071" Height="690" MinWidth="850" MinHeight="550" AllowsTransparency="False" Background="#00FFFFFF" ExtendsContentIntoTitleBar="True" WindowBackdropType="None" WindowStartupLocation="CenterScreen" UseLayoutRounding="True" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:settings="clr-namespace:Fedestrap.UI.Elements.Settings">
+﻿<base:WpfUiWindow x:Class="Fedestrap.UI.Elements.Settings.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:base="clr-namespace:Fedestrap.UI.Elements.Base" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:dmodels="clr-namespace:Fedestrap.UI.ViewModels.Settings" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:pages="clr-namespace:Fedestrap.UI.Elements.Settings.Pages" xmlns:resources="clr-namespace:Fedestrap.Resources" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" xmlns:media="clr-namespace:System.Windows.Media.Animation;assembly=PresentationCore" Closed="WpfUiWindow_Closed" Closing="WpfUiWindow_Closing" Loaded="MainWindow_Loaded" PreviewMouseWheel="OnZoomWheel" Title="{x:Static resources:Strings.Menu_Title}" Width="1071" Height="690" MinWidth="850" MinHeight="550" AllowsTransparency="False" Background="#00FFFFFF" ExtendsContentIntoTitleBar="True" WindowBackdropType="Mica" WindowStartupLocation="CenterScreen" UseLayoutRounding="True" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:settings="clr-namespace:Fedestrap.UI.Elements.Settings">
     
   <FrameworkElement.Resources>
     <ResourceDictionary>
@@ -317,7 +317,7 @@
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
       <Grid Name="SidebarHost" Row="1" Column="0" Margin="0,0,5,0" Panel.ZIndex="60">
-        <ui:NavigationFluent Name="RootNavigation" Width="225" SelectedPageIndex="1" TransitionType="FadeInWithSlideLeft" TransitionDuration="520" Frame="{Binding ElementName=RootFrame}">
+        <ui:NavigationFluent Name="RootNavigation" Width="225" SelectedPageIndex="1" TransitionType="FadeInWithSlideLeft" TransitionDuration="320" Frame="{Binding ElementName=RootFrame}">
           <ui:NavigationFluent.Resources>
             <Style TargetType="{x:Type ui:NavigationItem}">
               <Setter Property="Cache" Value="False" />
@@ -450,7 +450,7 @@
                   <RowDefinition Height="*" />
                   <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <ScrollViewer Grid.Row="0" Margin="0" Padding="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                <ScrollViewer Grid.Row="0" Margin="0" Padding="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                   <ItemsControl Focusable="False" ItemsSource="{TemplateBinding Items}" KeyboardNavigation.DirectionalNavigation="Contained" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <ItemsControl.ItemsPanel>
                       <ItemsPanelTemplate>
@@ -487,14 +487,13 @@
             <ui:NavigationSeparator />
             <ui:NavigationItem IsEnabled="False" Opacity="0.6" />
             <ui:NavigationItem Name="NewsNavItem" Content="News" Icon="News16" Tag="News20" Margin="0,-40,0,0" PageType="{x:Type pages:NewsPage}" />
-            <ui:NavigationItem Content="Manager" Icon="ArrowDownload24" Tag="ArrowDownload20" Margin="0,4,0,20" PageType="{x:Type pages:DownloadsPage}" />
-          </ui:NavigationBase.Items>
-          <ui:NavigationBase.Footer>
+            <ui:NavigationItem Content="Manager" Icon="ArrowDownload24" Tag="ArrowDownload20" Margin="0,4,0,0" PageType="{x:Type pages:DownloadsPage}" />
+            <ui:NavigationSeparator />
             <ui:NavigationItem Content="Extensions" Icon="CubeAdd20" Tag="CubeLink20" PageType="{x:Type pages:ExtensionPage}" />
             <ui:NavigationItem Name="ShortcutsNavItem" Content="{x:Static resources:Strings.Common_Shortcuts}" Icon="Apps32" Tag="Apps24" PageType="{x:Type pages:ShortcutsPage}" />
             <ui:NavigationItem Name="SettingsNavItem" Content="Settings" Icon="Settings28" Tag="Settings20" PageType="{x:Type pages:ChannelPage}" />
-            <ui:NavigationItem Content="{x:Static resources:Strings.Menu_About_Title}" Icon="QuestionCircle32" Tag="QuestionCircle48" Command="{Binding OpenAboutCommand, Mode=OneTime}" />
-          </ui:NavigationBase.Footer>
+            <ui:NavigationItem Content="{x:Static resources:Strings.Menu_About_Title}" Icon="QuestionCircle32" Tag="QuestionCircle48" Command="{Binding OpenAboutCommand, Mode=OneTime}" Margin="0,0,0,20" />
+          </ui:NavigationBase.Items>
         </ui:NavigationFluent>
         <Border Name="SidebarResizer" Width="8" HorizontalAlignment="Right" Background="Transparent" Cursor="SizeWE" ToolTip="Drag to resize, double click to reset" MouseLeftButtonDown="SidebarResizer_MouseLeftButtonDown" MouseMove="SidebarResizer_MouseMove" MouseLeftButtonUp="SidebarResizer_MouseLeftButtonUp" />
       </Grid>

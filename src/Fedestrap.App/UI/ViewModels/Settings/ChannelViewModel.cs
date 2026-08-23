@@ -72,6 +72,8 @@ public class ChannelViewModel : INotifyPropertyChanged, IDisposable
 
 	private string _selectedPriority;
 
+	private string _selectedLanguage;
+
 	private string _viewChannel;
 
 	private ICommand? _applyChannelCommand;
@@ -857,6 +859,30 @@ public class ChannelViewModel : INotifyPropertyChanged, IDisposable
 			App.Settings.SaveDeferred();
 		}
 		LoadChannelDeployInfoSafeAsync(App.Settings.Prop.Channel);
+		_selectedLanguage = Locale.SupportedLocales.TryGetValue(App.Settings.Prop.Locale, out string? configuredLocale)
+			? configuredLocale
+			: Locale.SupportedLocales[Locale.DefaultLocale];
+	}
+
+	// Same language setting as Appearance > Language - surfaced here too since
+	// that's several clicks deeper and easy to miss.
+	public List<string> LanguageOptions => Locale.GetLanguages();
+
+	public string SelectedLanguage
+	{
+		get => _selectedLanguage;
+		set
+		{
+			if (string.IsNullOrEmpty(value) || _selectedLanguage == value)
+				return;
+			_selectedLanguage = value;
+			OnPropertyChanged("SelectedLanguage");
+			App.Settings.Prop.AutoTranslate = false;
+			string identifier = Locale.GetIdentifierFromName(value);
+			App.Settings.Prop.Locale = identifier;
+			App.Settings.Save();
+			Locale.Set(identifier);
+		}
 	}
 
 	private static string NormalizePriority(string? priority)
