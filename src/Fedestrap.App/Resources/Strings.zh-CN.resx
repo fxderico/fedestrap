@@ -1449,9 +1449,6 @@ Fedestrap 的安装路径是：
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>保存和加载 Fast Flag 备份。</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>加入我们的 Discord 服务器</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

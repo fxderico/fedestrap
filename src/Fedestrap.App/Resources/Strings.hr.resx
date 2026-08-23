@@ -1424,9 +1424,6 @@ Molimo zatvorite bilo koju aplikaciju koja bi mogla koristiti Robloxove datoteke
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Spremite i učitajte sigurnosne kopije Fast Flag.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Pridružite se našem Discord poslužitelju</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

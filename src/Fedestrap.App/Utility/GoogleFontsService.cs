@@ -32,7 +32,7 @@ internal static partial class GoogleFontsService
 
 	private const long MaximumFontCacheBytes = 268435456;
 
-	private const string CatalogUrl = "https://fedestrapp.pages.dev/api/google-fonts";
+	private const string CatalogUrl = "https://fedestrap.fede.one/api/google-fonts";
 
 	private static readonly HttpClient Http = CreateHttpClient();
 

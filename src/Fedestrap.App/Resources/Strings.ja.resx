@@ -1439,9 +1439,6 @@ Robloxのアプリファイルを使用している可能性のあるアプリ�
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Fast Flag のバックアップを保存・読み込みします。</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Discord サーバーに参加</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

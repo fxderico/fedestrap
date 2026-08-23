@@ -1426,9 +1426,6 @@ Feche quaisquer aplicativos que possam estar usando os arquivos do Roblox e rein
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Salve e carregue backups de Fast Flag.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Entre no nosso servidor do Discord</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

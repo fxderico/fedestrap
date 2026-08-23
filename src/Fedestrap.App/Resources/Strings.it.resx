@@ -1427,9 +1427,6 @@ Si prega di chiudere tutte le applicazioni che potrebbero usare i file di Roblox
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Salva e carica i backup dei Fast Flag.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Unisciti al nostro server Discord</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

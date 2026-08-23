@@ -85,7 +85,7 @@ namespace Fedestrap.Integrations.FrameGeneration
         private static ProcessFn? _process;
         private static DestroyFn? _destroy;
 
-        private const string InstallBaseUrl = "https://fedestrapp.pages.dev/assets/bin/";
+        private const string InstallBaseUrl = "https://fedestrap.fede.one/assets/bin/";
         private static readonly Lock _installLock = new();
         private static bool _installStarted;
         private static volatile bool _installReady;

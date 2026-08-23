@@ -1417,9 +1417,6 @@ Isarado muna ang kahit anong application na maaaring gamitin ang mga file ng Rob
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>I-save at i-load ang Fast Flag Backups.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Sumali sa aming Discord server</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

@@ -1426,9 +1426,6 @@ Sulje kaikki sovellukset, jotka saattavat käyttää Robloxin tiedostoja, ja kä
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Tallenna ja lataa Fast Flag -varmuuskopioita.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Liity Discord-palvelimellemme</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

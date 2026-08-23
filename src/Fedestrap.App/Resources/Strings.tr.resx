@@ -1423,9 +1423,6 @@ Lütfen Roblox'un dosyalarını kullanabilecek olan uygulamaları kapatın, ve t
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Fast Flag yedeklerini kaydedin ve yükleyin.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Discord sunucumuza katılın</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

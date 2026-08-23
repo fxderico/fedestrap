@@ -1426,9 +1426,6 @@ Uždarykite visas programas, kurios gali naudoti „Roblox“ failus, ir paleisk
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Įrašykite ir įkelkite Fast Flag atsargines kopijas.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Prisijunkite prie mūsų Discord serverio</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

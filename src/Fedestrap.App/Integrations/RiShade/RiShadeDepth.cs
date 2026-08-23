@@ -66,7 +66,7 @@ namespace Fedestrap.Integrations.RiShade
         private const string RuntimeDllSha256 = "E7EEDEC6A6F26DC39DC948276A75EF6D2BEE3FFF944D874CEED0BBD3B97BFF40";
         private const long ProvidersDllBytes = 22040L;
         private const string ProvidersDllSha256 = "265C8DAF29637CB259CAC8BE9F08F2CD45F3883F0F0E4949CBFDDD5B4CBEC3B6";
-        private const string DirectMlUrl = "https://fedestrapp.pages.dev/assets/bin/DirectML.dll";
+        private const string DirectMlUrl = "https://fedestrap.fede.one/assets/bin/DirectML.dll";
         private const long DirectMlBytes = 18527776L;
         private const string DirectMlSha256 = "9C9E6D822561C6C41B90E6994B3E8857CF1D66DBFB1E0C4C799C7C89B4E92DA1";
         private const string LOG_IDENT = "RiShade";

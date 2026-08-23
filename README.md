@@ -8,8 +8,8 @@
 
 <p align="center">
   <a href="https://github.com/fxderico/fedestrap/releases/latest">Latest release</a> |
-  <a href="https://github.com/fxderico/fedestrap/wiki">Documentation</a> |
-  <a href="https://discord.gg/SRs5zb9BJd">Discord</a>
+  <a href="https://fedestrap.fede.one">Website</a> |
+  <a href="https://github.com/fxderico/fedestrap/wiki">Documentation</a>
 </p>
 
 <div align="center">
@@ -30,6 +30,12 @@
 > maintained here. For Mac/Linux, try [AppleBlox][appleblox] or
 > [Sober][sober].
 
+> [!WARNING]
+> The only official places to get Fedestrap are **this GitHub repository**
+> and **[fedestrap.fede.one][website]**. Any other site offering downloads or
+> claiming to be this project is not controlled by Fede - don't download
+> from them.
+
 If you found a bug, [open an issue][repo-new-issue].
 
 ## Installation
@@ -49,12 +55,13 @@ the COLR v0 format Roblox actually renders):
 - Window manipulation, frame generation and render tuning options
 - Google Fonts integration, translation service, gradient backgrounds
 - Controller support (ViGEm), audio ducking, headset audio routing
-- Game chat overlay, quest tracking, server matchmaking helpers
-- An account system (sign in, friends, notifications, etc.) backed by a
-  small self-hosted API — see [Accounts](#accounts) below for what that
-  actually covers
+- Game chat overlay and server matchmaking helpers
+- A real, self-hosted account system - sign in, register, change your
+  password, and edit your username/display name, all natively in the app
+  (no browser round-trip) - see [Accounts](#accounts) below for exactly
+  what that does and doesn't cover
 
-Not every corner of the original Voidstrap platform is running here — see
+Not every corner of the original Voidstrap platform is running here - see
 [Accounts](#accounts).
 
 ## Accounts
@@ -67,12 +74,17 @@ graph, a marketplace, forums), not something reasonable to fork alongside
 the desktop app.
 
 Fedestrap ships with its own from-scratch, self-hosted **accounts API**
-instead: simple username/password sign-in, capped at 2 accounts per IP.
-Roblox OAuth sign-in specifically is not implemented. Features that depend
-on the rest of the original platform (forums, marketplace, quests, chat,
-theme sharing) aren't backed by anything — the app already degrades
-gracefully when those calls fail (cached data or a plain "couldn't load"
-message) rather than crashing.
+instead, at [fedestrap.fede.one][website]. What's actually real:
+
+- Sign in, create an account, and sign out, entirely inside the app (no
+  browser tab involved) - capped at 2 accounts per IP
+- Change your password and edit your username/display name from Settings
+- An admin panel for managing accounts (not user-facing - operator only)
+
+What's *not* backed by anything: Roblox OAuth sign-in, friends, quests,
+marketplace, forums, chat, and theme sharing. Features that depend on those
+degrade gracefully when the calls fail (cached data or a plain "couldn't
+load" message) rather than crashing.
 
 ## How to Fork
 
@@ -106,6 +118,7 @@ Fedestrap is built using **C# and .NET**.
 [repo-stargazers]:  https://github.com/fxderico/fedestrap/stargazers
 [repo-new-issue]:   https://github.com/fxderico/fedestrap/issues/new/choose
 
+[website]:    https://fedestrap.fede.one
 [bloxstrap]:  https://github.com/bloxstraplabs/bloxstrap
 [fishstrap]:  https://github.com/fishstrap/fishstrap
 [voidstrap]:  https://github.com/KloBraticc/Voidstrap

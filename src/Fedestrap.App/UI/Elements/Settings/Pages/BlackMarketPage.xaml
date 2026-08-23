@@ -13,7 +13,7 @@
 
     <Grid Grid.Row="0" Margin="0,0,0,12">
       <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-        <Image Width="24" Height="24" Margin="0,0,8,0" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="https://fedestrapp.pages.dev/assets/img/blackmarket-allinone.png?v=3" />
+        <Image Width="24" Height="24" Margin="0,0,8,0" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="https://fedestrap.fede.one/assets/img/blackmarket-allinone.png?v=3" />
         <TextBlock x:Name="HeaderTitle" Text="Black Market" FontSize="20" FontWeight="Medium" VerticalAlignment="Center" />
       </StackPanel>
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

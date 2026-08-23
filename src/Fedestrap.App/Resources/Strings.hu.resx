@@ -1424,9 +1424,6 @@ Kérjük, zárjon be minden olyan alkalmazást, amely a Roblox fájljait haszná
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Mentse és töltse be a Fast Flag biztonsági mentéseket.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Csatlakozz Discord szerverünkhöz</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

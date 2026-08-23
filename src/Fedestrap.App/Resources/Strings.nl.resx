@@ -1423,9 +1423,6 @@ Sluit alstublieft alle applicaties die mogelijk de bestanden van Roblox gebruike
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Sla Fast Flag-back-ups op en laad ze.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Word lid van onze Discord-server</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

@@ -18,7 +18,7 @@
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ui:CardAction Grid.Row="0" Grid.Column="0" Margin="0,0,4,0" Icon="DocumentTextToolbox24" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://fedestrapp.pages.dev/mods/mods">
+        <ui:CardAction Grid.Row="0" Grid.Column="0" Margin="0,0,4,0" Icon="DocumentTextToolbox24" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://fedestrap.fede.one/mods/mods">
           <StackPanel>
             <TextBlock FontSize="14" Text="Find Mods" FontWeight="Medium" />
             <TextBlock Margin="0,2,0,0" FontSize="12" Text="Search for Mods on the Fedestrap Website." Padding="0,0,16,0" Foreground="{DynamicResource TextFillColorTertiaryBrush}" TextWrapping="Wrap" />
@@ -669,7 +669,7 @@
                         </ui:CardExpander>
                         <ui:CardExpander IsExpanded="False" Margin="0,8,0,0" Header="Custom Crosshair">
               <StackPanel>
-                <ui:CardAction Icon="CursorHover24" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://fedestrapp.pages.dev/crosshairs/crosshairs">
+                <ui:CardAction Icon="CursorHover24" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://fedestrap.fede.one/crosshairs/crosshairs">
                   <StackPanel>
                     <TextBlock FontSize="14" Text="Crosshair Codes" FontWeight="Medium" />
                     <TextBlock Margin="0,2,0,0" FontSize="12" Text="Find Crosshairs you would like to use!" Padding="0,0,16,0" Foreground="{DynamicResource TextFillColorTertiaryBrush}" TextWrapping="Wrap" />
@@ -770,7 +770,7 @@
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <ui:Button Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,0,8" Content="Find Mods" Icon="DocumentSearch24" Appearance="Secondary" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://fedestrapp.pages.dev/mods/mods" />
+        <ui:Button Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,0,8" Content="Find Mods" Icon="DocumentSearch24" Appearance="Secondary" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://fedestrap.fede.one/mods/mods" />
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
           <ui:Button Icon="ArrowLeft24" Padding="8,4" Margin="0,0,8,0" ToolTip="Go Back" Command="{Binding GoBackCommand}" />
           <TextBlock Text="Roblox" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />

@@ -1425,9 +1425,6 @@ Proszę, zamknij wszystkie aplikacje, które mogą używać plików Roblox i uru
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Zapisuj i wczytuj kopie zapasowe Fast Flag.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Dołącz do naszego serwera Discord</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

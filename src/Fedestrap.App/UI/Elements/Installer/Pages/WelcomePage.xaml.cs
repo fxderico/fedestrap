@@ -60,11 +60,6 @@ public partial class WelcomePage : UiPage{
 			OpenLink(url);
 	}
 
-	private void DonateButton_Click(object sender, RoutedEventArgs e)
-	{
-		OpenLink(App.WebsiteBaseUrl + "/donate/donate");
-	}
-
 	private void ContributorsButton_Click(object sender, RoutedEventArgs e)
 	{
 		OpenLink(App.WebsiteBaseUrl + "/contributors/contributors");

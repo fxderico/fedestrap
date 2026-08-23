@@ -1428,9 +1428,6 @@ Fedestrap 安裝在 "{1}"。</value>
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>儲存與載入 Fast Flag 備份。</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>加入我們的 Discord 伺服器</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

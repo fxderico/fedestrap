@@ -236,7 +236,6 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
         ["ShortcutsPage"] = ("Shortcuts", "Game launch shortcuts"),
         ["ChannelPage"] = ("Settings", "App settings & updates"),
         ["ReleasesPage"] = ("Releases", "Fedestrap release history"),
-        ["DonoPage"] = ("Support Fedestrap", "Considering a donation"),
         ["HelpPage"] = ("Help", "why... THIS ISNT A PAGE ANYMORE"),
         ["NvidiaFastFlagsPage"] = ("NVIDIA FFlags", "GPU specific tweaks")
     };
@@ -309,7 +308,6 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
         typeof(DownloadsPage),
         typeof(NvidiaFFlagEditorPage),
         typeof(ReleasesPage),
-        typeof(DonoPage),
         typeof(LibraryPage)
     };
 
@@ -3389,7 +3387,7 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
                 Timestamps = new Timestamps(_voidRpcSessionStart),
                 Assets = new Assets
                 {
-                    LargeImageKey = "https://fedestrapp.pages.dev/assets/img/fedestrap.png",
+                    LargeImageKey = "https://fedestrap.fede.one/assets/img/fedestrap.png",
                     LargeImageText = largeImageText,
                     SmallImageKey = string.IsNullOrEmpty(_voidRpcSmallImageUrl) ? null : _voidRpcSmallImageUrl,
                     SmallImageText = string.IsNullOrEmpty(_voidRpcSmallImageUrl) ? null : (_voidRpcSmallImageText.Length > 0 ? _voidRpcSmallImageText : "Roblox")

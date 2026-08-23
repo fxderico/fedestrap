@@ -1416,9 +1416,6 @@ Sila tutup sebarang aplikasi yang mungkin menggunakan fail Roblox, dan cuba lagi
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Simpan dan muat sandaran Fast Flag.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Sertai pelayan Discord kami</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>

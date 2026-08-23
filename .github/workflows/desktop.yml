@@ -81,61 +81,16 @@ jobs:
           name: aur
           path: artifacts/aur
 
-  linux_packages:
-    name: Linux ${{ matrix.rid }} ${{ matrix.format }} package validation
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - rid: linux-x64
-            format: deb
-          - rid: linux-arm64
-            format: deb
-          - rid: linux-x64
-            format: tar
-          - rid: linux-arm64
-            format: tar
-          - rid: linux-musl-x64
-            format: tar
-          - rid: linux-musl-arm64
-            format: tar
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          submodules: recursive
-      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
-        with:
-          dotnet-version: 10.0.x
-      - run: sudo apt-get update && sudo apt-get install -y binutils desktop-file-utils file
-      - run: bash build/Packaging/Linux/package.sh ${{ matrix.rid }} '' ${{ matrix.format }} artifacts/packages
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: ${{ matrix.rid }}-${{ matrix.format }}
-          path: artifacts/packages
-
-  linux_rpm_packages:
-    name: Linux ${{ matrix.rid }} RPM artifact validation
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - rid: linux-x64
-          - rid: linux-arm64
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          submodules: recursive
-      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
-        with:
-          dotnet-version: 10.0.x
-      - run: sudo apt-get update && sudo apt-get install -y binutils cpio desktop-file-utils file rpm
-      - run: bash build/Packaging/Linux/package.sh ${{ matrix.rid }} '' rpm artifacts/packages
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: ${{ matrix.rid }}-rpm
-          path: artifacts/packages
+  # Linux deb/rpm/tar package generation (self-contained single-file publish
+  # of Fedestrap.Cross.csproj for Linux RIDs) is not run here: it currently
+  # fails on every RID with a NuGet bundling conflict between
+  # librewpf.transport and System.Drawing.Common, which both ship a
+  # System.Private.Windows.Core.dll at the same path when bundled together.
+  # That's an upstream dependency issue, not something this fork's code can
+  # fix, and Linux/macOS builds are inherited scaffolding this fork doesn't
+  # actively maintain (see README). linux_validation above still builds
+  # Fedestrap.Cross and Fedestrap.Desktop.Linux without publishing, which is
+  # unaffected and does pass.
 
   linux_appimage_availability:
     name: Linux AppImage tool availability

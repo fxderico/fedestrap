@@ -37,7 +37,6 @@
         </Grid>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
           <ui:Hyperlink Icon="QuestionCircle48" Content="{x:Static resources:Strings.About_Title}" Command="{Binding LaunchAboutCommand, Mode=OneTime}" />
-          <ui:Hyperlink Icon="Heart20" Content="Donate Ko-Fi" NavigateUri="https://fedestrapp.pages.dev/donate/donate" HorizontalAlignment="Center" />
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" />
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" />
@@ -65,10 +64,10 @@
           </ui:CardAction>
         </Grid>
         <Border Margin="12" />
-        <ui:CardAction Width="285" Margin="0,10,0,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://fedestrapp.pages.dev" Icon="Globe20" IconFilled="False" TabIndex="2">
+        <ui:CardAction Width="285" Margin="0,10,0,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://fedestrap.fede.one" Icon="Globe20" IconFilled="False" TabIndex="2">
           <StackPanel>
             <TextBlock FontSize="14" Text="Website" />
-            <TextBlock Margin="0,2,0,0" Padding="0,0,16,0" FontSize="12" Foreground="#FF808080" Text="View Mods, Crosshairs and more." />
+            <TextBlock Margin="0,2,0,0" Padding="0,0,16,0" FontSize="12" Foreground="#FF808080" Text="fedestrap.fede.one" />
           </StackPanel>
         </ui:CardAction>
       </StackPanel>

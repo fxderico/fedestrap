@@ -357,20 +357,4 @@ public partial class ChannelPage : UiPage{
 		}
 	}
 
-	private void DonateButton_Click(object sender, RoutedEventArgs e)
-	{
-		string fileName = App.WebsiteBaseUrl + "/donate/donate";
-		try
-		{
-			Process.Start(new ProcessStartInfo
-			{
-				FileName = fileName,
-				UseShellExecute = true
-			});
-		}
-		catch (Exception ex)
-		{
-			Frontend.ShowMessageBox("Wasnt able to open: " + ex.Message);
-		}
-	}
 }

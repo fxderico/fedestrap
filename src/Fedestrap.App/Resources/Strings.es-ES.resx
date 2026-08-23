@@ -1425,9 +1425,6 @@ Por favor cierre las aplicaciones que estén usando los archivos de Roblox, y vu
   <data name="Menu_FlagProfiles_Description" xml:space="preserve">
     <value>Guarda y carga copias de seguridad de Fast Flags.</value>
   </data>
-  <data name="LaunchMenu.Donate" xml:space="preserve">
-    <value>Únete a nuestro servidor de Discord</value>
-  </data>
   <data name="Menu.About.Licenses.Apache" xml:space="preserve">
     <value>Apache License 2.0</value>
   </data>
