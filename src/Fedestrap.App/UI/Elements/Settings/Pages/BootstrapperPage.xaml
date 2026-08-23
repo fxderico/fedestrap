@@ -264,36 +264,6 @@
           </ui:CardExpander>
         </StackPanel>
       </TabItem>
-      <TabItem>
-        <HeaderedContentControl.Header>
-          <StackPanel Orientation="Horizontal">
-            <ui:SymbolIcon Symbol="Settings24" Margin="0,0,6,0" />
-            <TextBlock Text="Roblox" />
-          </StackPanel>
-        </HeaderedContentControl.Header>
-        <StackPanel Margin="10">
-          <controls:OptionControl Header="Fullscreen mode" Description="How the Roblox game window fills your screen" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
-            <ComboBox Width="240" Padding="10,5,10,5" DisplayMemberPath="Display" SelectedValuePath="Value" ItemsSource="{Binding FullscreenModes}" SelectedValue="{Binding RobloxFullscreenMode, Mode=TwoWay}" />
-          </controls:OptionControl>
-          <ui:InfoBar Padding="8" Margin="0,4,0,0" IsClosable="False" IsOpen="True" Severity="Warning" Title="Overlays are hidden in exclusive fullscreen" Message="Your Windows mouse cursor and every overlay are hidden" Visibility="{Binding ShowExclusiveFullscreenWarning, Converter={StaticResource BooleanToVisibilityConverter}}" />
-          <controls:OptionControl Header="Title" Description="Leave blank to keep the title Roblox sets" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
-            <ui:TextBox Width="220" PlaceholderText="Fedestrap" Text="{Binding RobloxTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-          </controls:OptionControl>
-          <controls:OptionControl Header="Add the game name" Description="Shows the experience you are playing in the title bar" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
-            <ui:ToggleSwitch IsChecked="{Binding CycleTitleWithGameName, Mode=TwoWay}" />
-          </controls:OptionControl>
-          <controls:OptionControl Header="Use the game icon" Description="Shows the experience icon on the Roblox window and taskbar button" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
-            <ui:ToggleSwitch IsChecked="{Binding UseGameIconForRobloxWindow, Mode=TwoWay}" />
-          </controls:OptionControl>
-          <controls:OptionControl Header="Add the server info" Description="Shows the server region and player count in the title bar" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
-            <ui:ToggleSwitch IsChecked="{Binding ShowServerInfoInTitle, Mode=TwoWay}" />
-          </controls:OptionControl>
-          <controls:OptionControl Header="Window backdrop" Description="Backdrop material to Roblox's window frame. Requires Windows 11" IsEnabled="{Binding IsWindows11}" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
-            <ComboBox Width="240" Padding="10,5,10,5" ItemsSource="{Binding BackdropOptions}" SelectedValue="{Binding RobloxBackdropType, Mode=TwoWay}" DisplayMemberPath="Display" SelectedValuePath="Value" IsEnabled="{Binding IsWindows11}" />
-          </controls:OptionControl>
-
-        </StackPanel>
-      </TabItem>
     </TabControl>
   </StackPanel>
 </ui:UiPage>

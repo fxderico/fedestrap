@@ -864,6 +864,204 @@ public class AppearanceViewModel : NotifyPropertyChangedViewModel
 
     public Visibility AutoTranslateVisibility => _selectedLanguage == _autoTranslateOption ? Visibility.Visible : Visibility.Collapsed;
 
+    // Roblox's own window (title, icon, fullscreen mode, backdrop) - moved
+    // here from Deployment, since it's a window/visual setting, not a
+    // deployment one.
+
+    public sealed class FullscreenModeItem
+    {
+        public int Value { get; init; }
+
+        public string Display { get; init; } = "";
+    }
+
+    private static readonly ObservableCollection<FullscreenModeItem> _fullscreenModes = new()
+    {
+        new FullscreenModeItem { Value = 0, Display = "Normal window" },
+        new FullscreenModeItem { Value = 1, Display = "Borderless fullscreen" },
+        new FullscreenModeItem { Value = 2, Display = "Exclusive fullscreen" }
+    };
+
+    public ObservableCollection<FullscreenModeItem> FullscreenModes => _fullscreenModes;
+
+    public int RobloxFullscreenMode
+    {
+        get
+        {
+            if (App.Settings.Prop.FakeExclusiveFullscreen)
+                return 2;
+            return App.Settings.Prop.FakeBorderlessFullscreen ? 1 : 0;
+        }
+        set
+        {
+            if (RobloxFullscreenMode == value)
+                return;
+            if (value == 2)
+            {
+                FakeExclusiveFullscreen = true;
+                if (!App.Settings.Prop.FakeExclusiveFullscreen)
+                {
+                    OnPropertyChanged("RobloxFullscreenMode");
+                    OnPropertyChanged("ShowExclusiveFullscreenWarning");
+                    return;
+                }
+                FakeBorderlessFullscreen = false;
+            }
+            else
+            {
+                FakeExclusiveFullscreen = false;
+                FakeBorderlessFullscreen = value == 1;
+            }
+            OnPropertyChanged("RobloxFullscreenMode");
+            OnPropertyChanged("ShowExclusiveFullscreenWarning");
+        }
+    }
+
+    public bool ShowExclusiveFullscreenWarning => RobloxFullscreenMode == 2;
+
+    public bool FakeBorderlessFullscreen
+    {
+        get
+        {
+            return App.Settings.Prop.FakeBorderlessFullscreen;
+        }
+        set
+        {
+            if (App.Settings.Prop.FakeBorderlessFullscreen != value)
+            {
+                App.Settings.Prop.FakeBorderlessFullscreen = value;
+                OnPropertyChanged("FakeBorderlessFullscreen");
+            }
+        }
+    }
+
+    public bool FakeExclusiveFullscreen
+    {
+        get
+        {
+            return App.Settings.Prop.FakeExclusiveFullscreen;
+        }
+        set
+        {
+            if (App.Settings.Prop.FakeExclusiveFullscreen == value)
+            {
+                return;
+            }
+            if (value && Frontend.ShowMessageBox(
+                "Fake Exclusive Fullscreen presents Roblox through a fullscreen layer.\n\nWhile it is on:\n\nYour Windows mouse cursor is hidden.\nEvery overlay is hidden, including the crosshair, the FPS and ping counters, RiShade and Anti Aliasing.\n\nTurn it off if you need any of those. Enable it anyway?",
+                MessageBoxImage.Warning,
+                MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            {
+                OnPropertyChanged("FakeExclusiveFullscreen");
+                return;
+            }
+            App.Settings.Prop.FakeExclusiveFullscreen = value;
+            OnPropertyChanged("FakeExclusiveFullscreen");
+        }
+    }
+
+    public bool CycleTitleWithGameName
+    {
+        get
+        {
+            return App.Settings.Prop.CycleTitleWithGameName;
+        }
+        set
+        {
+            if (App.Settings.Prop.CycleTitleWithGameName != value)
+            {
+                App.Settings.Prop.CycleTitleWithGameName = value;
+                OnPropertyChanged("CycleTitleWithGameName");
+            }
+        }
+    }
+
+    public bool UseGameIconForRobloxWindow
+    {
+        get
+        {
+            return App.Settings.Prop.UseGameIconForRobloxWindow;
+        }
+        set
+        {
+            if (App.Settings.Prop.UseGameIconForRobloxWindow != value)
+            {
+                App.Settings.Prop.UseGameIconForRobloxWindow = value;
+                OnPropertyChanged("UseGameIconForRobloxWindow");
+            }
+        }
+    }
+
+    public bool ShowServerInfoInTitle
+    {
+        get
+        {
+            return App.Settings.Prop.ShowServerInfoInTitle;
+        }
+        set
+        {
+            if (App.Settings.Prop.ShowServerInfoInTitle != value)
+            {
+                App.Settings.Prop.ShowServerInfoInTitle = value;
+                OnPropertyChanged("ShowServerInfoInTitle");
+            }
+        }
+    }
+
+    public sealed class RobloxBackdropItem
+    {
+        public int Value { get; init; }
+
+        public string Display { get; init; } = "";
+    }
+
+    private static readonly ObservableCollection<RobloxBackdropItem> _robloxBackdropOptions = new()
+    {
+        new RobloxBackdropItem { Value = 0, Display = "Default (off)" },
+        new RobloxBackdropItem { Value = 2, Display = "Mica" },
+        new RobloxBackdropItem { Value = 4, Display = "Mica Alt" },
+        new RobloxBackdropItem { Value = 3, Display = "Acrylic" },
+        new RobloxBackdropItem { Value = 5, Display = "Aero (glass blur)" }
+    };
+
+    public ObservableCollection<RobloxBackdropItem> RobloxBackdropOptions => _robloxBackdropOptions;
+
+    public int RobloxBackdropType
+    {
+        get
+        {
+            return App.Settings.Prop.RobloxWindowBackdropType;
+        }
+        set
+        {
+            if (App.Settings.Prop.RobloxWindowBackdropType != value)
+            {
+                App.Settings.Prop.RobloxWindowBackdropType = value;
+                App.Settings.SaveDeferred();
+                OnPropertyChanged("RobloxBackdropType");
+            }
+        }
+    }
+
+    public bool IsWindows11 => OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
+
+    public string RobloxTitle
+    {
+        get
+        {
+            return App.Settings.Prop.RobloxTitle;
+        }
+        set
+        {
+            string text = value ?? "";
+            if (App.Settings.Prop.RobloxTitle != text)
+            {
+                App.Settings.Prop.RobloxTitle = text;
+                OnPropertyChanged("RobloxTitle");
+            }
+        }
+    }
+
     public IEnumerable<BootstrapperStyle> Dialogs { get; } = BootstrapperStyleEx.Selections;
 
     public BootstrapperStyle Dialog
