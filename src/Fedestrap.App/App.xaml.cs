@@ -127,7 +127,7 @@ public partial class App : Application
 
 	public static readonly BuildMetadataAttribute BuildMetadata = ResolveBuildMetadata();
 
-	public static string Version { get; set; } = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0.0";
+	public static string Version { get; set; } = Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "0.0.0";
 
 	public const int TaskbarProgressMaximum = 100;
 

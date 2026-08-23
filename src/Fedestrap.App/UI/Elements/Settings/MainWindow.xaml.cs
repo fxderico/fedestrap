@@ -3436,7 +3436,7 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
                     UpdateAccountButtonsEnabled();
                     UpdateNotificationsButtonState(true);
                     _notificationRealtime.Start();
-                    _ = LoadAccountBorderAsync();
+                    RefreshAccountUi();
                     if (RootFrame?.Content is not Pages.NotificationsPage)
                         _ = RefreshNotificationBadgeAsync(true);
                 }
@@ -4030,7 +4030,11 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
     {
         try
         {
-            RobloxAccount account = await RobloxCookie.GetAccountAsync();
+            // This popup is the Fedestrap account (sign in/out, profile) - it
+            // must never read the local Roblox account/cookie.
+            Fedestrap.Utility.WebsiteProfileData? account = Fedestrap.Utility.WebsiteAuth.IsSignedIn()
+                ? await Fedestrap.Utility.WebsiteProfileEditor.LoadAsync().ConfigureAwait(false)
+                : null;
             _lifetimeCts.Token.ThrowIfCancellationRequested();
             await ((DispatcherObject)this).Dispatcher.InvokeAsync((Action)delegate
             {
@@ -4059,9 +4063,9 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
                     }
                 }
             });
-            if (account != null && account.UserId > 0)
+            if (account != null && !string.IsNullOrWhiteSpace(account.Avatar))
             {
-                await LoadAvatarAsync(account.UserId);
+                await LoadAvatarAsync(account.Avatar);
             }
             await LoadAccountBorderAsync();
         }
@@ -4652,31 +4656,16 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
         }
     }
 
-    private async Task LoadAvatarAsync(long userId)
+    private async Task LoadAvatarAsync(string avatarUrl)
     {
         try
         {
+            if (string.IsNullOrWhiteSpace(avatarUrl))
+            {
+                return;
+            }
             CancellationToken token = _lifetimeCts.Token;
-            string requestUri = $"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={userId}&size=150x150&format=Png&isCircular=false";
-            using JsonDocument doc = JsonDocument.Parse(await Fedestrap.Utility.Http.GetString(requestUri, token).ConfigureAwait(false));
-            if (!doc.RootElement.TryGetProperty("data", out var value) || value.ValueKind != JsonValueKind.Array)
-            {
-                return;
-            }
-            string text = null;
-            foreach (JsonElement item in value.EnumerateArray())
-            {
-                if (item.TryGetProperty("imageUrl", out var value2) && value2.ValueKind == JsonValueKind.String)
-                {
-                    text = value2.GetString();
-                    break;
-                }
-            }
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                return;
-            }
-            BitmapSource? bitmap = await Fedestrap.Utility.AppImage.LoadAsync(text, 150, token).ConfigureAwait(false);
+            BitmapSource? bitmap = await Fedestrap.Utility.AppImage.LoadAsync(avatarUrl, 150, token).ConfigureAwait(false);
             if (bitmap == null)
             {
                 return;

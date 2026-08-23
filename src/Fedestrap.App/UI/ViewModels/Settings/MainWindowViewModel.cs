@@ -29,7 +29,7 @@ public class MainWindowViewModel : NotifyPropertyChangedViewModel
 
 	private Fedestrap.UI.Elements.Settings.MainWindow.TabItemViewModel _selectedTab;
 
-	public string AppVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+	public string AppVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
 
 	public ICommand OpenAboutCommand => new RelayCommand(OpenAbout);
 

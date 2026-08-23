@@ -861,7 +861,10 @@ internal partial class Installer
 		bool flag = App.LaunchSettings.UpgradeFlag.Active || Paths.Process.StartsWith(Path.Combine(Paths.Base, "Updates")) || Paths.Process.StartsWith(Path.Combine(Paths.LocalAppData, "Temp")) || Paths.Process.StartsWith(Paths.TempUpdates);
 		string productVersion = FileVersionInfo.GetVersionInfo(Paths.Application).ProductVersion;
 		string productVersion2 = FileVersionInfo.GetVersionInfo(Paths.Process).ProductVersion;
-		if (MD5Hash.FromFile(Paths.Process) == MD5Hash.FromFile(Paths.Application) || (productVersion2 != null && productVersion != null && Utilities.CompareVersions(productVersion2, productVersion) == VersionComparison.LessThan && Frontend.ShowMessageBox(Strings.InstallChecker_VersionLessThanInstalled, MessageBoxImage.Question, MessageBoxButton.YesNo) != MessageBoxResult.Yes) || (!flag && Frontend.ShowMessageBox(Strings.InstallChecker_VersionDifferentThanInstalled, MessageBoxImage.Question, MessageBoxButton.YesNo) != MessageBoxResult.Yes))
+		// The "you launched a different version than what's installed, want to
+		// upgrade?" prompt is gone - running a different build than the
+		// installed copy just runs standalone now, no dialog.
+		if (MD5Hash.FromFile(Paths.Process) == MD5Hash.FromFile(Paths.Application) || (productVersion2 != null && productVersion != null && Utilities.CompareVersions(productVersion2, productVersion) == VersionComparison.LessThan && Frontend.ShowMessageBox(Strings.InstallChecker_VersionLessThanInstalled, MessageBoxImage.Question, MessageBoxButton.YesNo) != MessageBoxResult.Yes) || !flag)
 		{
 			return;
 		}

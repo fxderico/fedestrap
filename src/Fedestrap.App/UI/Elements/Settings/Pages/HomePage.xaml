@@ -149,7 +149,7 @@
                                        Margin="8,0,0,0"
                                        Click="ChangePassword_Click"/>
                             <ui:Button Content="Admin panel"
-                                       Icon="ShieldPerson24"
+                                       Icon="ShieldCheckmark24"
                                        Appearance="Secondary"
                                        Background="#33000000"
                                        BorderBrush="#40FFFFFF"

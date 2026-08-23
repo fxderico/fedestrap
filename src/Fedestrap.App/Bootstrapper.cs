@@ -1029,7 +1029,7 @@ public class Bootstrapper
             return false;
         }
         string text2 = text.TrimStart(['v', 'V']);
-        string text3 = (App.Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0");
+        string text3 = (App.Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "0.0.0");
         App.Logger.WriteLine(logIdent, "Local: " + text3 + " | Remote: " + text2);
         if (IsNewerVersion(text2))
         {
@@ -1055,7 +1055,7 @@ public class Bootstrapper
         {
             return false;
         }
-        string text = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0";
+        string text = Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "0.0.0";
         remoteTag = remoteTag.TrimStart(['v', 'V']);
         if (Version.TryParse(text, out Version result) && Version.TryParse(remoteTag, out Version result2))
         {

@@ -236,7 +236,7 @@ public partial class ChannelPage : UiPage{
 		_ = 2;
 		try
 		{
-			string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
 			CancellationToken token = _versionCts?.Token ?? CancellationToken.None;
 			var release = await App.GetLatestRelease(true) ?? throw new InvalidDataException("Release information is unavailable");
 			string text = release.TagName;

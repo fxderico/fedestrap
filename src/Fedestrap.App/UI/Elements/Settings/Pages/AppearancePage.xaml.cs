@@ -144,7 +144,11 @@ public partial class AppearancePage : UiPage{
 		}
 		catch (Exception ex)
 		{
-			Frontend.ShowMessageBox("Failed to download custom theme:\n" + ex.Message, MessageBoxImage.Exclamation);
+			// This runs automatically every time the page opens, best-effort -
+			// there's no default custom theme to fetch right now, so failing
+			// here is expected rather than something to interrupt the user
+			// with a dialog over.
+			App.Logger.WriteException("AppearancePage::DownloadCustomTheme", ex);
 		}
 	}
 }
