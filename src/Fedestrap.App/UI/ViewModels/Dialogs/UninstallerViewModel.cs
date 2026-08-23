@@ -7,7 +7,7 @@ namespace Fedestrap.UI.ViewModels.Dialogs;
 
 public class UninstallerViewModel
 {
-	public string Text => string.Format(Strings.Uninstaller_Text, "https://fedestrap.fede.one/documentation#issues", Paths.Base);
+	public string Text => string.Format(Strings.Uninstaller_Text, "https://github.com/fxderico/fedestrap/issues", Paths.Base);
 
 	public bool KeepData { get; set; } = true;
 

@@ -32,29 +32,13 @@
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <ui:CardAction Grid.Row="0" Grid.Column="0" Margin="0,0,4,0" Icon="Home24" Tag="https://fedestrap.fede.one" Click="LinkCard_Click">
+        <ui:CardAction Grid.Column="0" Margin="0,0,4,0" Icon="Home24" Tag="https://fedestrap.fede.one" Click="LinkCard_Click">
           <StackPanel>
             <TextBlock Style="{StaticResource WelcomeLinkTitle}" Text="Website" />
-            <TextBlock Style="{StaticResource WelcomeLinkDesc}" Text="Downloads, news and your profile" />
+            <TextBlock Style="{StaticResource WelcomeLinkDesc}" Text="fedestrap.fede.one" />
           </StackPanel>
         </ui:CardAction>
-        <ui:CardAction Grid.Row="0" Grid.Column="1" Margin="4,0,0,0" Icon="WindowWrench24" Tag="https://fedestrap.fede.one/mods/mods" Click="LinkCard_Click">
-          <StackPanel>
-            <TextBlock Style="{StaticResource WelcomeLinkTitle}" Text="Mods" />
-            <TextBlock Style="{StaticResource WelcomeLinkDesc}" Text="Find good mods" />
-          </StackPanel>
-        </ui:CardAction>
-        <ui:CardAction Grid.Row="1" Grid.Column="0" Margin="0,8,4,0" Icon="Cursor20" Tag="https://fedestrap.fede.one/crosshairs/crosshairs" Click="LinkCard_Click">
-          <StackPanel>
-            <TextBlock Style="{StaticResource WelcomeLinkTitle}" Text="Crosshairs" />
-            <TextBlock Style="{StaticResource WelcomeLinkDesc}" Text="Community Crosshairs" />
-          </StackPanel>
-        </ui:CardAction>
-        <ui:CardAction Grid.Row="1" Grid.Column="1" Margin="4,8,0,0" Icon="BookQuestionMark24" Tag="https://fedestrap.fede.one/documentation/documentation" Click="LinkCard_Click">
+        <ui:CardAction Grid.Column="1" Margin="4,0,0,0" Icon="BookQuestionMark24" Tag="https://github.com/fxderico/fedestrap/wiki" Click="LinkCard_Click">
           <StackPanel>
             <TextBlock Style="{StaticResource WelcomeLinkTitle}" Text="Documentation" />
             <TextBlock Style="{StaticResource WelcomeLinkDesc}" Text="Features, FastFlags and fixes" />
