@@ -3467,6 +3467,10 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
         _notificationRealtime.Start();
         UpdateNotificationsButtonState(true);
         _ = RefreshNotificationBadgeAsync(true);
+        if (base.DataContext is MainWindowViewModel updateCheckViewModel)
+        {
+            _ = updateCheckViewModel.CheckForUpdatesAsync();
+        }
         if (App.Settings.Prop.GRADmentFR)
         {
             CompositionTarget.Rendering -= CompositionTarget_Rendering;

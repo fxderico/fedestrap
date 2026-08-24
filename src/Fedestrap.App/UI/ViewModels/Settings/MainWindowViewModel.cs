@@ -31,6 +31,106 @@ public class MainWindowViewModel : NotifyPropertyChangedViewModel
 
 	public string AppVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
 
+	private bool _updateAvailable;
+
+	public bool UpdateAvailable
+	{
+		get => _updateAvailable;
+		private set
+		{
+			if (_updateAvailable == value)
+				return;
+			_updateAvailable = value;
+			OnPropertyChanged("UpdateAvailable");
+			OnPropertyChanged("CanInstallUpdate");
+		}
+	}
+
+	private bool _installingUpdate;
+
+	public bool InstallingUpdate
+	{
+		get => _installingUpdate;
+		private set
+		{
+			if (_installingUpdate == value)
+				return;
+			_installingUpdate = value;
+			OnPropertyChanged("InstallingUpdate");
+			OnPropertyChanged("CanInstallUpdate");
+			OnPropertyChanged("UpdateButtonText");
+		}
+	}
+
+	private string _latestVersionTag = "";
+
+	public string LatestVersionTag
+	{
+		get => _latestVersionTag;
+		private set
+		{
+			if (_latestVersionTag == value)
+				return;
+			_latestVersionTag = value;
+			OnPropertyChanged("LatestVersionTag");
+			OnPropertyChanged("UpdateButtonText");
+		}
+	}
+
+	public bool CanInstallUpdate => UpdateAvailable && !InstallingUpdate;
+
+	public string UpdateButtonText => InstallingUpdate ? "Updating..." : ("Update to " + LatestVersionTag);
+
+	public ICommand InstallUpdateCommand => new AsyncRelayCommand(InstallUpdateAsync);
+
+	public async Task CheckForUpdatesAsync()
+	{
+		if (!App.Settings.Prop.CheckForUpdates)
+			return;
+		try
+		{
+			var release = await App.GetLatestRelease(true);
+			if (release == null || string.IsNullOrWhiteSpace(release.TagName))
+				return;
+			if (!Version.TryParse(release.TagName.TrimStart('v', 'V'), out Version? remote))
+				return;
+			if (!Version.TryParse(AppVersion, out Version? local))
+				return;
+			if (remote > local)
+			{
+				LatestVersionTag = release.TagName;
+				UpdateAvailable = true;
+			}
+		}
+		catch (Exception ex)
+		{
+			App.Logger.WriteLine("MainWindowViewModel::CheckForUpdates", "Update check failed: " + ex.Message);
+		}
+	}
+
+	private async Task InstallUpdateAsync()
+	{
+		if (InstallingUpdate || string.IsNullOrEmpty(LatestVersionTag))
+			return;
+		InstallingUpdate = true;
+		try
+		{
+			if (await Fedestrap.Extensions.GithubUpdater.DownloadAndInstallUpdate(LatestVersionTag))
+			{
+				App.RestartApplication(["-settings"]);
+				return;
+			}
+			InstallingUpdate = false;
+			Frontend.ShowMessageBox("The update could not be installed. Check the logs and try again.", MessageBoxImage.Warning);
+		}
+		catch (Exception ex)
+		{
+			InstallingUpdate = false;
+			App.Logger.WriteLine("MainWindowViewModel::InstallUpdate", "Update install failed: " + ex.Message);
+			Frontend.ShowMessageBox("Error installing update:\n" + ex.Message, MessageBoxImage.Error);
+		}
+	}
+
 	public ICommand OpenAboutCommand => new RelayCommand(OpenAbout);
 
 	public ICommand SaveSettingsCommand => new AsyncRelayCommand(SaveSettingsAsync);

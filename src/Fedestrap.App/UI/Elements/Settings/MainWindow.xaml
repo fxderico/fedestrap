@@ -254,9 +254,14 @@
           <Grid Width="30" Height="30" ClipToBounds="False" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Border x:Name="AccountAvatarRing" Width="20" Height="20" CornerRadius="10" Padding="1.5" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource ControlFillColorSecondaryBrush}">
               <Border CornerRadius="9" ClipToBounds="True">
-                <Border.Background>
-                  <ImageBrush x:Name="AccountAvatarBrush" Stretch="UniformToFill" />
-                </Border.Background>
+                <Grid>
+                  <ui:SymbolIcon Symbol="Person24" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                  <Border>
+                    <Border.Background>
+                      <ImageBrush x:Name="AccountAvatarBrush" Stretch="UniformToFill" />
+                    </Border.Background>
+                  </Border>
+                </Grid>
               </Border>
             </Border>
             <Image x:Name="AccountBorderImage" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Visibility="Collapsed" RenderOptions.BitmapScalingMode="HighQuality" />
@@ -288,10 +293,15 @@
               <ColumnDefinition Width="Auto" />
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Width="42" Height="42" CornerRadius="21" ClipToBounds="True">
-              <Border.Background>
-                <ImageBrush x:Name="AccountPopupAvatarBrush" Stretch="UniformToFill" />
-              </Border.Background>
+            <Border Grid.Column="0" Width="42" Height="42" CornerRadius="21" ClipToBounds="True" Background="{DynamicResource ControlFillColorSecondaryBrush}">
+              <Grid>
+                <ui:SymbolIcon Symbol="Person24" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                <Border>
+                  <Border.Background>
+                    <ImageBrush x:Name="AccountPopupAvatarBrush" Stretch="UniformToFill" />
+                  </Border.Background>
+                </Border>
+              </Grid>
             </Border>
             <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
               <TextBlock Name="AccountDisplayNameText" Text="" FontWeight="SemiBold" FontSize="14" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
@@ -513,7 +523,8 @@
             <ui:Breadcrumb Navigation="{Binding ElementName=RootNavigation}" />
           </StackPanel>
           <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <ui:TextBox Name="GlobalSearchBox" Margin="0,0,6,0" HorizontalAlignment="Right" Visibility="Collapsed" PlaceholderText="Search..." ClearButtonEnabled="True" Icon="Search24" TextChanged="GlobalSearchBox_TextChanged" />
+            <ui:TextBox Name="GlobalSearchBox" Width="280" Height="32" Padding="10,5,10,5" Margin="0,0,6,0" HorizontalAlignment="Right" Visibility="Collapsed" PlaceholderText="Search..." ClearButtonEnabled="True" Icon="Search24" TextChanged="GlobalSearchBox_TextChanged" />
+            <ui:Button x:Name="UpdateAvailableButton" Margin="0,0,6,0" Height="32" Padding="10,0" Appearance="Primary" Background="{DynamicResource SystemAccentBrush}" Icon="ArrowDownload24" Content="{Binding UpdateButtonText}" IsEnabled="{Binding CanInstallUpdate}" Command="{Binding InstallUpdateCommand}" Visibility="{Binding UpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
           </StackPanel>
           <ui:InfoBar Margin="0,0,28,0" Grid.Column="2" HorizontalAlignment="Right" Padding="3" IsClosable="True" IsOpen="True"  Message="{Binding AppVersion}" />
         </Grid>
