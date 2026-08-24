@@ -503,7 +503,7 @@
             <controls:OptionControl Header="Enable Overlay" Description="Enables the Overlay Mods to work over Roblox.">
               <ui:ToggleSwitch IsChecked="{Binding OverlaysEnabled, Mode=TwoWay}" />
             </controls:OptionControl>
-                        <controls:OptionControl Header="Homepage Background" Description="Change you're Roblox Home">
+                        <controls:OptionControl Header="Homepage Background" Description="Change the background of Roblox's home page">
               <StackPanel Width="360">
                 <Grid>
                   <Grid.ColumnDefinitions>
@@ -628,7 +628,7 @@
             <controls:OptionControl Header="Anti Aliasing" Description="Smooths jagged edges over Roblox with your GPU" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
               <ComboBox Padding="10,5,10,5" MinWidth="140" ItemsSource="{Binding AntiAliasingMethodNames, Mode=OneTime}" SelectedIndex="{Binding AntiAliasingMethodIndex, Mode=TwoWay}" />
             </controls:OptionControl>
-            <controls:OptionControl Header="Frame Generation" Description="Auto generates as many stable frames as your game, Adds a little input latency" Visibility="{x:Static platform:PlatformFeatureVisibility.FrameGeneration}">
+            <controls:OptionControl Header="Frame Generation" Description="Generates extra frames to stabilize your framerate. Adds a little input latency." Visibility="{x:Static platform:PlatformFeatureVisibility.FrameGeneration}">
               <ui:ToggleSwitch IsChecked="{Binding FrameGenEnabled, Mode=TwoWay}" />
             </controls:OptionControl>
             <controls:OptionControl Header="Generated Frames Overlay" Description="Displays how many frames per second are being generated" Visibility="{x:Static platform:PlatformFeatureVisibility.FrameGeneration}">
