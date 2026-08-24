@@ -475,18 +475,6 @@ public class FastFlagsViewModel : NotifyPropertyChangedViewModel
 		}
 	}
 
-	public bool EnableDarkMode
-	{
-		get
-		{
-			return App.FastFlags.GetPreset("DarkMode.BlueMode") == "False";
-		}
-		set
-		{
-			App.FastFlags.SetPreset("DarkMode.BlueMode", value ? "False" : null);
-		}
-	}
-
 	public bool ChatBubble
 	{
 		get

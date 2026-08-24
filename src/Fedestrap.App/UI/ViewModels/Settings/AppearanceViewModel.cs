@@ -1047,6 +1047,18 @@ public class AppearanceViewModel : NotifyPropertyChangedViewModel
 
     public bool IsWindows11 => OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
 
+    public bool EnableDarkMode
+    {
+        get
+        {
+            return App.FastFlags.GetPreset("DarkMode.BlueMode") == "False";
+        }
+        set
+        {
+            App.FastFlags.SetPreset("DarkMode.BlueMode", value ? "False" : null);
+        }
+    }
+
     public string RobloxTitle
     {
         get

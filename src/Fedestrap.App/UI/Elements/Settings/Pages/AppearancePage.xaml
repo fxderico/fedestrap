@@ -182,6 +182,9 @@
           <controls:OptionControl Header="Window backdrop" Description="Backdrop material to Roblox's window frame. Requires Windows 11" IsEnabled="{Binding IsWindows11}" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
             <ComboBox Width="240" Padding="10,5,10,5" ItemsSource="{Binding RobloxBackdropOptions}" SelectedValue="{Binding RobloxBackdropType, Mode=TwoWay}" DisplayMemberPath="Display" SelectedValuePath="Value" IsEnabled="{Binding IsWindows11}" />
           </controls:OptionControl>
+          <controls:OptionControl Description="Forces Roblox's own UI (menus, chat, everything outside the game) to use dark mode, regardless of your system theme." Header="Force Roblox dark mode">
+            <ui:ToggleSwitch IsChecked="{Binding EnableDarkMode, Mode=TwoWay}" />
+          </controls:OptionControl>
         </StackPanel>
       </TabItem>
 
