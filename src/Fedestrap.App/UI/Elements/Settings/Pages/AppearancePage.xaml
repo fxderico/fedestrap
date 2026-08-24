@@ -150,6 +150,32 @@
           <controls:OptionControl Header="Use the game icon" Description="Shows the experience icon on the Roblox window and taskbar button" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
             <ui:ToggleSwitch IsChecked="{Binding UseGameIconForRobloxWindow, Mode=TwoWay}" />
           </controls:OptionControl>
+          <controls:OptionControl Header="Window icon" Description="What icon Roblox's window and taskbar button use when the game icon above is off (or hasn't loaded yet)" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
+            <ComboBox Padding="10,5,10,5" SelectedValuePath="IconType" ItemsSource="{Binding Icons, Mode=OneWay}" SelectedValue="{Binding RobloxIconSelection, Mode=TwoWay}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="16" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Height="16" RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding ImageSource, Mode=OneWay, TargetNullValue={x:Null}, FallbackValue={x:Null}}" />
+                    <TextBlock Grid.Column="1" Margin="8,0,0,0" Text="{Binding Path=IconType, Converter={StaticResource EnumNameConverter}}" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ComboBox>
+          </controls:OptionControl>
+          <controls:OptionControl Header="Custom window icon file" Description="Pick your own .ico file - only used when Window icon above is set to Custom" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
+            <Grid Width="360">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <ui:TextBox Grid.Column="0" Margin="0,0,4,0" Text="{Binding RobloxCustomIconLocation, Mode=TwoWay}" />
+              <ui:Button Grid.Column="1" Margin="4,0,0,0" Height="35" Icon="Folder24" Content="{x:Static resources:Strings.Common_Browse}" Command="{Binding BrowseRobloxCustomIconLocationCommand}" />
+            </Grid>
+          </controls:OptionControl>
           <controls:OptionControl Header="Add the server info" Description="Shows the server region and player count in the title bar" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
             <ui:ToggleSwitch IsChecked="{Binding ShowServerInfoInTitle, Mode=TwoWay}" />
           </controls:OptionControl>

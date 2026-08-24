@@ -133,6 +133,8 @@ public class AppearanceViewModel : NotifyPropertyChangedViewModel
 
     public ICommand BrowseCustomIconLocationCommand => new RelayCommand(BrowseCustomIconLocation);
 
+    public ICommand BrowseRobloxCustomIconLocationCommand => new RelayCommand(BrowseRobloxCustomIconLocation);
+
     public ICommand AddCustomThemeCommand => new RelayCommand(AddCustomTheme);
 
     public ICommand DeleteCustomThemeCommand => new AsyncRelayCommand(DeleteCustomThemeAsync);
@@ -1162,6 +1164,81 @@ public class AppearanceViewModel : NotifyPropertyChangedViewModel
         }
     }
 
+    // Same idea as Icon/CustomIconLocation above, but for the Roblox game
+    // window's icon instead of Fedestrap's own bootstrapper icon.
+
+    public BootstrapperIcon RobloxIconSelection
+    {
+        get
+        {
+            return App.Settings.Prop.RobloxIcon;
+        }
+        set
+        {
+            if (value == BootstrapperIcon.IconCustom && !HasValidRobloxCustomIcon() && !PromptRobloxCustomIcon())
+            {
+                OnPropertyChanged("RobloxIconSelection");
+                return;
+            }
+            App.Settings.Prop.RobloxIcon = value;
+            App.Settings.SaveDeferred();
+            OnPropertyChanged("RobloxIconSelection");
+        }
+    }
+
+    public string RobloxCustomIconLocation
+    {
+        get
+        {
+            return App.Settings.Prop.RobloxIconCustomLocation;
+        }
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                if (App.Settings.Prop.RobloxIcon == BootstrapperIcon.IconCustom)
+                {
+                    App.Settings.Prop.RobloxIcon = BootstrapperIcon.IconFedestrap;
+                }
+            }
+            else
+            {
+                App.Settings.Prop.RobloxIcon = BootstrapperIcon.IconCustom;
+            }
+            App.Settings.Prop.RobloxIconCustomLocation = value;
+            App.Settings.SaveDeferred();
+            OnPropertyChanged("RobloxIconSelection");
+            OnPropertyChanged("Icons");
+            OnPropertyChanged("RobloxCustomIconLocation");
+        }
+    }
+
+    private static bool HasValidRobloxCustomIcon()
+    {
+        string location = App.Settings.Prop.RobloxIconCustomLocation;
+        if (!string.IsNullOrEmpty(location))
+        {
+            return File.Exists(location);
+        }
+        return false;
+    }
+
+    private bool PromptRobloxCustomIcon()
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog
+        {
+            Filter = Strings.Menu_IconFiles + "|*.ico"
+        };
+        if (openFileDialog.ShowDialog() != true)
+        {
+            return false;
+        }
+        App.Settings.Prop.RobloxIconCustomLocation = openFileDialog.FileName;
+        App.Settings.SaveDeferred();
+        OnPropertyChanged("RobloxCustomIconLocation");
+        return true;
+    }
+
     public string CustomIconLocation
     {
         get
@@ -1511,6 +1588,18 @@ public class AppearanceViewModel : NotifyPropertyChangedViewModel
         if (openFileDialog.ShowDialog() == true)
         {
             CustomIconLocation = openFileDialog.FileName;
+        }
+    }
+
+    private void BrowseRobloxCustomIconLocation()
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog
+        {
+            Filter = Strings.Menu_IconFiles + "|*.ico"
+        };
+        if (openFileDialog.ShowDialog() == true)
+        {
+            RobloxCustomIconLocation = openFileDialog.FileName;
         }
     }
 
