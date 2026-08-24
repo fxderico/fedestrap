@@ -32,7 +32,7 @@ public partial class MeshViewerWindow : WpfUiWindow{
 		InitializeComponent();
 		if (!string.IsNullOrEmpty(title))
 		{
-			base.Title = "Mesh Viewer - " + title;
+			base.Title = "Mesh Viewer: " + title;
 		}
 		try
 		{

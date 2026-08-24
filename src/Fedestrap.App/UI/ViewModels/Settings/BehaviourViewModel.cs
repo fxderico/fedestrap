@@ -303,7 +303,7 @@ public class BehaviourViewModel : NotifyPropertyChangedViewModel
 			}
 			if (value && !RobloxCookie.Exists)
 			{
-				if (Frontend.ShowMessageBox("Fedestrap can't find your Roblox login yet, so the matchmaker can't sync.\n\nClick Continue to launch Roblox and log in - it will sync automatically afterwards.\nClick Cancel to leave the matchmaker turned off.", MessageBoxImage.Exclamation, MessageBoxButton.OKCancel, MessageBoxResult.OK) == MessageBoxResult.OK)
+				if (Frontend.ShowMessageBox("Fedestrap can't find your Roblox login yet, so the matchmaker can't sync.\n\nClick Continue to launch Roblox and log in, it will sync automatically afterwards.\nClick Cancel to leave the matchmaker turned off.", MessageBoxImage.Exclamation, MessageBoxButton.OKCancel, MessageBoxResult.OK) == MessageBoxResult.OK)
 				{
 					App.Settings.Prop.FedestrapMatchmakerEnabled = true;
 					OnPropertyChanged("FedestrapMatchmakerEnabled");

@@ -166,7 +166,7 @@
               </ItemsControl.ItemTemplate>
             </ComboBox>
           </controls:OptionControl>
-          <controls:OptionControl Header="Custom window icon file" Description="Pick your own .ico file - only used when Window icon above is set to Custom" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
+          <controls:OptionControl Header="Custom window icon file" Description="Pick your own .ico file, only used when Window icon above is set to Custom" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
             <Grid Width="360">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

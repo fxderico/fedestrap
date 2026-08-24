@@ -1252,7 +1252,7 @@ public partial class AssetPreviewPanel : UserControl{
 
 	private void Help_Click(object sender, RoutedEventArgs e)
 	{
-		Frontend.ShowMessageBox("Camera Controls\n\nOrbit Mode (default)\n  Click + Drag  -  Rotate the model\n  Scroll Wheel  -  Zoom in / out\n\nFPS Mode (press W/A/S/D to enter)\n  W / A / S / D  -  Move forward / left / back / right\n  Space / Shift  -  Move up / down\n  Click + Drag   -  Look around\n  Scroll Wheel   -  Move in / out\n  Hold Q / E     -  Move slower / faster", MessageBoxImage.Asterisk);
+		Frontend.ShowMessageBox("Camera Controls\n\nOrbit Mode (default)\n  Click + Drag  :  Rotate the model\n  Scroll Wheel  :  Zoom in / out\n\nFPS Mode (press W/A/S/D to enter)\n  W / A / S / D  :  Move forward / left / back / right\n  Space / Shift  :  Move up / down\n  Click + Drag   :  Look around\n  Scroll Wheel   :  Move in / out\n  Hold Q / E     :  Move slower / faster", MessageBoxImage.Asterisk);
 	}
 
 	private void Host_KeyDown(object sender, KeyEventArgs e)

@@ -88,7 +88,7 @@ namespace Fedestrap.UI.Elements.ContextMenu
                             Id = id,
                             DisplayName = string.IsNullOrEmpty(displayName) ? username : displayName,
                             UsernameLabel = "@" + username,
-                            SubtitleLabel = "Registered " + created + " - IP " + ip,
+                            SubtitleLabel = "Registered " + created + ", IP " + ip,
                             AdminBadgeVisibility = isAdmin ? Visibility.Visible : Visibility.Collapsed,
                         });
                     }

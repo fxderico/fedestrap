@@ -82,7 +82,7 @@
               <controls:OptionControl Header="Bypass Windows emulation overhead" Description="Strips compatibility and CPU emulation layers from the Roblox build, drops any compatibility layer Fedestrap inherited, and stops Windows from power throttling Roblox. Your elevation and fullscreen optimisation choices are kept, and everything is restored when you turn this off." Visibility="{Binding BypassEmulationOverheadVisibility, Mode=OneWay}">
                 <ui:ToggleSwitch IsChecked="{Binding BypassEmulationOverhead, Mode=TwoWay}" />
               </controls:OptionControl>
-              <controls:OptionControl Header="Fully close Roblox when its window closes" Description="Stops Roblox's spyware from lingering in the background after you close its window - Fedestrap kills it a few seconds after the window is gone." Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
+              <controls:OptionControl Header="Fully close Roblox when its window closes" Description="Stops Roblox's spyware from lingering in the background after you close its window. Fedestrap kills it a few seconds after the window is gone." Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
                 <ui:ToggleSwitch IsChecked="{Binding CloseRobloxWhenWindowCloses, Mode=TwoWay}" />
               </controls:OptionControl>
             </StackPanel>

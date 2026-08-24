@@ -203,7 +203,7 @@ namespace Fedestrap.Models.Persistable
         public bool ExitOnDissy { get; set; } = false;
         public bool ServerUptimeBetterBLOXcuzitsbetterXD { get; set; } = true;
 
-        public string DownloadingStringFormat { get; set; } = Strings.Bootstrapper_Status_Downloading + " {0} - {1}MB / {2}MB";
+        public string DownloadingStringFormat { get; set; } = Strings.Bootstrapper_Status_Downloading + " {0}: {1}MB / {2}MB";
         public bool ConnectCloset { get; set; } = false;
 
         public bool GameChatEnabled { get; set; } = false;

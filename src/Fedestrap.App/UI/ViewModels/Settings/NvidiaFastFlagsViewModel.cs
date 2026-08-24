@@ -18,12 +18,12 @@ public sealed class NvidiaFastFlagsViewModel : INotifyPropertyChanged
 	private static readonly Dictionary<string, int> BenchmarkOverlayMap = new()
 	{
 		{ "Disabled", 0 },
-		{ "GRAPH_FLIP_FPS - FPS graph, measured on display hw flip", 1 },
-		{ "GRAPH_PRESENT_FPS - FPS graph, measured when the user mode driver starts processing present", 2 },
-		{ "GRAPH_APP_PRESENT_FPS - FPS graph, measured on app present", 4 },
-		{ "DISPLAY_PAGING - Add red paging indicator bars to the GRAPH_PRESENT_FPS graph", 8 },
-		{ "DISPLAY_APP_THREAD_WAIT - Add app thread wait time indiator bars to the GRAPH_APP_PRESENT_FPS graph", 16 },
-		{ "Enabled - Enable everything", 511 }
+		{ "GRAPH_FLIP_FPS: FPS graph, measured on display hw flip", 1 },
+		{ "GRAPH_PRESENT_FPS: FPS graph, measured when the user mode driver starts processing present", 2 },
+		{ "GRAPH_APP_PRESENT_FPS: FPS graph, measured on app present", 4 },
+		{ "DISPLAY_PAGING: Add red paging indicator bars to the GRAPH_PRESENT_FPS graph", 8 },
+		{ "DISPLAY_APP_THREAD_WAIT: Add app thread wait time indiator bars to the GRAPH_APP_PRESENT_FPS graph", 16 },
+		{ "Enabled: Enable everything", 511 }
 	};
 
 	private string _cplLatency = "Off";
@@ -210,14 +210,14 @@ public sealed class NvidiaFastFlagsViewModel : INotifyPropertyChanged
 		Set(entries, "Line gamma", "545898348", gamma);
 		string antialiasing = EnableFXAA ? "1" : "0";
 		Set(entries, "Enable FXAA", "276089202", antialiasing);
-		Set(entries, "Antialiasing - Mode", "276757595", antialiasing);
+		Set(entries, "Antialiasing: Mode", "276757595", antialiasing);
 		Set(entries, "MFAA", "10011052", EnableMFAA ? "1" : "0");
-		Set(entries, "Texture filtering - LOD Bias", "7573135", unchecked((uint)TextureLodBias).ToString(CultureInfo.InvariantCulture));
+		Set(entries, "Texture filtering: LOD Bias", "7573135", unchecked((uint)TextureLodBias).ToString(CultureInfo.InvariantCulture));
 		if (TextureLodBias != 0)
 		{
-			Set(entries, "Texture filtering - Quality", "13510289", "20");
+			Set(entries, "Texture filtering: Quality", "13510289", "20");
 			Set(entries, "Anisotropic filtering mode", "282245910", "1");
-			Set(entries, "Antialiasing - Transparency Supersampling", "282364549", "8");
+			Set(entries, "Antialiasing: Transparency Supersampling", "282364549", "8");
 		}
 		NvidiaProfileManager.SaveToNip(NipPath, entries);
 		return entries;

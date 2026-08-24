@@ -33,7 +33,7 @@
 > [!WARNING]
 > The only official places to get Fedestrap are **this GitHub repository**
 > and **[fedestrap.fede.one][website]**. Any other site offering downloads or
-> claiming to be this project is not controlled by Fede - don't download
+> claiming to be this project is not controlled by Fede. Don't download
 > from them.
 
 If you found a bug, [open an issue][repo-new-issue].
@@ -56,12 +56,12 @@ the COLR v0 format Roblox actually renders):
 - Google Fonts integration, translation service, gradient backgrounds
 - Controller support (ViGEm), audio ducking, headset audio routing
 - Game chat overlay and server matchmaking helpers
-- A real, self-hosted account system - sign in, register, change your
+- A real, self-hosted account system: sign in, register, change your
   password, and edit your username/display name, all natively in the app
-  (no browser round-trip) - see [Accounts](#accounts) below for exactly
+  (no browser round-trip). See [Accounts](#accounts) below for exactly
   what that does and doesn't cover
 
-Not every corner of the original Voidstrap platform is running here - see
+Not every corner of the original Voidstrap platform is running here. See
 [Accounts](#accounts).
 
 ## Accounts
@@ -77,9 +77,9 @@ Fedestrap ships with its own from-scratch, self-hosted **accounts API**
 instead, at [fedestrap.fede.one][website]. What's actually real:
 
 - Sign in, create an account, and sign out, entirely inside the app (no
-  browser tab involved) - capped at 2 accounts per IP
+  browser tab involved), capped at 2 accounts per IP
 - Change your password and edit your username/display name from Settings
-- An admin panel for managing accounts (not user-facing - operator only)
+- An admin panel for managing accounts (not user-facing, operator only)
 
 What's *not* backed by anything: Roblox OAuth sign-in, friends, quests,
 marketplace, forums, chat, and theme sharing. Features that depend on those

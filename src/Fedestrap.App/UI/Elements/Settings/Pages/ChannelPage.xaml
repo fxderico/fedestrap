@@ -201,7 +201,7 @@
                   <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,0">
-                  <TextBlock FontSize="14" Text="Channels - [Roblox Build]" />
+                  <TextBlock FontSize="14" Text="Channels (Roblox Build)" />
                   <TextBlock FontSize="12" Text="Enter deployment channel name. Invalid channels will cause 403-404 error!" Foreground="{DynamicResource TextFillColorTertiaryBrush}" TextWrapping="Wrap" />
                 </StackPanel>
                 <TextBox Grid.Column="1" Width="200" Margin="8,0,8,0" Padding="10,5,10,5" FontSize="13" VerticalContentAlignment="Center" ToolTip="Enter deployment channel (e.g., production, zlive, live)" MaxLength="2147483647" AcceptsReturn="False" TextWrapping="NoWrap" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Text="{Binding ViewChannel, Mode=TwoWay, UpdateSourceTrigger=LostFocus, FallbackValue=production}" IsEnabled="{Binding IsChannelEnabled}" />

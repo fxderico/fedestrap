@@ -38,7 +38,7 @@
 
                 <TextBlock Text="Username" FontWeight="SemiBold" Margin="0,14,0,4"/>
                 <ui:TextBox x:Name="UsernameBox" MaxLength="20" PlaceholderText="3-20 characters: letters, numbers, underscore"/>
-                <TextBlock Text="Changing this changes how you sign in too - make sure you'll remember it." FontSize="11" Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
+                <TextBlock Text="Changing this changes how you sign in too, so make sure you'll remember it." FontSize="11" Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
 
                 <TextBlock Text="Status" FontWeight="SemiBold" Margin="0,14,0,4"/>
                 <ui:TextBox x:Name="StatusBox" MaxLength="80" PlaceholderText="What are you up to?"/>

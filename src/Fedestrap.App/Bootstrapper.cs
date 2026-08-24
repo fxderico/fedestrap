@@ -767,7 +767,7 @@ public class Bootstrapper
                 }
                 await Task.Delay(500, _cancelTokenSource.Token);
             }
-            App.Logger.WriteLine("Bootstrapper::WaitForRobloxClose", "Watching " + processName + ".exe - exiting when every Roblox instance is closed.");
+            App.Logger.WriteLine("Bootstrapper::WaitForRobloxClose", "Watching " + processName + ".exe, exiting when every Roblox instance is closed.");
             int goneStreak = 0;
             while (!_cancelTokenSource.IsCancellationRequested)
             {
@@ -820,7 +820,7 @@ public class Bootstrapper
                 App.Logger.WriteLine("Bootstrapper::WaitForRobloxGame", "Roblox process never started.");
                 return;
             }
-            App.Logger.WriteLine("Bootstrapper::WaitForRobloxGame", "Roblox process detected - watching for leave.");
+            App.Logger.WriteLine("Bootstrapper::WaitForRobloxGame", "Roblox process detected, watching for leave.");
             string currentLog = null;
             long position = 0L;
             bool leaving = false;
@@ -842,18 +842,18 @@ public class Bootstrapper
                     if (leaving)
                     {
                         leaving = false;
-                        App.Logger.WriteLine("Bootstrapper::WaitForRobloxGame", "Rejoin/teleport detected - staying with the game.");
+                        App.Logger.WriteLine("Bootstrapper::WaitForRobloxGame", "Rejoin/teleport detected, staying with the game.");
                     }
                 }
                 else if (flag2 && !leaving)
                 {
                     leaving = true;
                     leaveAt = DateTime.UtcNow;
-                    App.Logger.WriteLine("Bootstrapper::WaitForRobloxGame", "Leave signal detected - confirming it is not a matchmaker rejoin.");
+                    App.Logger.WriteLine("Bootstrapper::WaitForRobloxGame", "Leave signal detected, confirming it is not a matchmaker rejoin.");
                 }
                 if (leaving && (DateTime.UtcNow - leaveAt).TotalMilliseconds > 6000.0)
                 {
-                    App.Logger.WriteLine("Bootstrapper::WaitForRobloxGame", "Confirmed leave - closing Roblox and returning to the built-in browser.");
+                    App.Logger.WriteLine("Bootstrapper::WaitForRobloxGame", "Confirmed leave, closing Roblox and returning to the built-in browser.");
                     break;
                 }
                 await Task.Delay(300, _cancelTokenSource.Token);
@@ -1288,7 +1288,7 @@ public class Bootstrapper
 		}
 		if (!forceManifest && AppData.State.VersionGuid == _latestVersionGuid && !MustUpgrade && !App.Settings.Prop.ForceRobloxReinstall)
         {
-            App.Logger.WriteLine("Bootstrapper::GetLatestVersionInfo", "Already up to date - skipping package manifest fetch.");
+            App.Logger.WriteLine("Bootstrapper::GetLatestVersionInfo", "Already up to date, skipping package manifest fetch.");
             _versionPackageManifest = new PackageManifest();
             return;
         }
@@ -2554,7 +2554,7 @@ public class Bootstrapper
 		string stagingDirectory = _latestVersionDirectory + ".installing";
         if (Interlocked.Exchange(ref _isInstalling, 1) == 1)
         {
-            App.Logger.WriteLine("Bootstrapper::UpgradeRoblox", "Upgrade already in progress - skipping.");
+            App.Logger.WriteLine("Bootstrapper::UpgradeRoblox", "Upgrade already in progress, skipping.");
             return;
         }
         try
