@@ -53,6 +53,18 @@ public class Watcher : IDisposable
 
 	private Timer? _settingsReloadTimer;
 
+	private Timer? _closeWatchdogTimer;
+
+	private bool _closeWatchdogHadWindow;
+
+	private DateTime? _closeWatchdogNoWindowSince;
+
+	private readonly DateTime _closeWatchdogFirstSeen = DateTime.UtcNow;
+
+	private const int CloseWatchdogLaunchGraceSeconds = 10;
+
+	private const int CloseWatchdogDebounceSeconds = 3;
+
 	private bool _activityTrackingEnabled;
 
 	private bool _discordRichPresenceEnabled;
@@ -638,6 +650,82 @@ public class Watcher : IDisposable
 		}
 	}
 
+	// Roblox sometimes doesn't actually exit when you close its window - it
+	// can linger in the background. If enabled, this watches the window we
+	// launched and force-closes the process once its window has been gone
+	// for a few seconds (a short debounce so it doesn't fire during normal
+	// loading/teleporting, when there's briefly no window either).
+	private void StartCloseWatchdog()
+	{
+		if (_disposed || _watcherData == null || !App.Settings.Prop.CloseRobloxWhenWindowCloses)
+		{
+			return;
+		}
+		_closeWatchdogTimer = new Timer(CloseWatchdogTick, null, 1000, 1000);
+	}
+
+	private void CloseWatchdogTick(object? state)
+	{
+		if (_disposed || _watcherData == null || !App.Settings.Prop.CloseRobloxWhenWindowCloses)
+		{
+			return;
+		}
+		try
+		{
+			using Process process = Process.GetProcessById(_watcherData.ProcessId);
+			process.Refresh();
+			if (process.HasExited)
+			{
+				return;
+			}
+
+			bool hasWindow = process.MainWindowHandle != IntPtr.Zero;
+			DateTime now = DateTime.UtcNow;
+
+			if (hasWindow)
+			{
+				_closeWatchdogHadWindow = true;
+				_closeWatchdogNoWindowSince = null;
+				return;
+			}
+
+			_closeWatchdogNoWindowSince ??= now;
+			double goneSeconds = (now - _closeWatchdogNoWindowSince.Value).TotalSeconds;
+
+			bool shouldClose;
+			string reason;
+			if (_closeWatchdogHadWindow && goneSeconds >= CloseWatchdogDebounceSeconds)
+			{
+				shouldClose = true;
+				reason = "window closed, still running in the background";
+			}
+			else
+			{
+				double ageSeconds = (now - _closeWatchdogFirstSeen).TotalSeconds;
+				shouldClose = !_closeWatchdogHadWindow && ageSeconds > CloseWatchdogLaunchGraceSeconds && goneSeconds >= CloseWatchdogDebounceSeconds;
+				reason = "never opened a window, running in the background";
+			}
+
+			if (shouldClose)
+			{
+				App.Logger.WriteLine("Watcher::CloseWatchdog", $"Closing Roblox (pid={_watcherData.ProcessId}): {reason}");
+				CloseProcess(_watcherData.ProcessId, force: true);
+				_closeWatchdogTimer?.Change(Timeout.Infinite, Timeout.Infinite);
+			}
+		}
+		catch (ArgumentException)
+		{
+			// process is already gone
+		}
+		catch (InvalidOperationException)
+		{
+		}
+		catch (Exception ex)
+		{
+			App.Logger.WriteException("Watcher::CloseWatchdog", ex);
+		}
+	}
+
 	public async Task Run()
 	{
 		if (_disposed || !_lock.IsAcquired || _watcherData == null)
@@ -647,6 +735,7 @@ public class Watcher : IDisposable
 		ActivityWatcher?.Start();
 		StartWindowManipulation();
 		StartRuntimeOptimizer();
+		StartCloseWatchdog();
 		try
 		{
 			using Process process = Process.GetProcessById(_watcherData.ProcessId);
@@ -850,6 +939,11 @@ public class Watcher : IDisposable
 				_settingsReloadTimer.DisposeAsync().AsTask().ConfigureAwait(continueOnCapturedContext: false).GetAwaiter().GetResult();
 			}
 			_settingsReloadTimer = null;
+			if (_closeWatchdogTimer != null)
+			{
+				_closeWatchdogTimer.DisposeAsync().AsTask().ConfigureAwait(continueOnCapturedContext: false).GetAwaiter().GetResult();
+			}
+			_closeWatchdogTimer = null;
 		}
 		catch
 		{

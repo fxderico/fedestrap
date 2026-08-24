@@ -149,6 +149,7 @@ namespace Fedestrap.Models.Persistable
 
         public bool RobloxEfficiencyMode { get; set; } = false;
         public bool ReduceMemoryOutOfFocus { get; set; } = false;
+        public bool CloseRobloxWhenWindowCloses { get; set; } = false;
         public bool BackgroundUpdatesEnabled { get; set; } = true;
         public bool VoidNotify { get; set; } = true;
         public bool ServerPingCounter { get; set; } = false;

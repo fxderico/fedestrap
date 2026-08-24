@@ -912,6 +912,23 @@ public class BehaviourViewModel : NotifyPropertyChangedViewModel
 
 	public Visibility BypassEmulationOverheadVisibility => Fedestrap.Utility.Platform.IsWindows ? Visibility.Visible : Visibility.Collapsed;
 
+	public bool CloseRobloxWhenWindowCloses
+	{
+		get
+		{
+			return App.Settings.Prop.CloseRobloxWhenWindowCloses;
+		}
+		set
+		{
+			if (App.Settings.Prop.CloseRobloxWhenWindowCloses != value)
+			{
+				App.Settings.Prop.CloseRobloxWhenWindowCloses = value;
+				OnPropertyChanged("CloseRobloxWhenWindowCloses");
+				App.Settings.SaveDeferred();
+			}
+		}
+	}
+
 
 
 	public bool ReduceMemoryOutOfFocus

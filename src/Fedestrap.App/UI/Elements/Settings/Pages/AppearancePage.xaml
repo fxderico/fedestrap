@@ -151,7 +151,7 @@
             <ui:ToggleSwitch IsChecked="{Binding UseGameIconForRobloxWindow, Mode=TwoWay}" />
           </controls:OptionControl>
           <controls:OptionControl Header="Window icon" Description="What icon Roblox's window and taskbar button use when the game icon above is off (or hasn't loaded yet)" Visibility="{x:Static platform:PlatformFeatureVisibility.WindowsIntegration}">
-            <ComboBox Padding="10,5,10,5" SelectedValuePath="IconType" ItemsSource="{Binding Icons, Mode=OneWay}" SelectedValue="{Binding RobloxIconSelection, Mode=TwoWay}">
+            <ComboBox Padding="10,5,10,5" SelectedValuePath="IconType" ItemsSource="{Binding RobloxIcons, Mode=OneWay}" SelectedValue="{Binding RobloxIconSelection, Mode=TwoWay}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
                   <Grid>

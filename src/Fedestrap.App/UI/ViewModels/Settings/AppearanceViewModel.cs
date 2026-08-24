@@ -1102,6 +1102,12 @@ public class AppearanceViewModel : NotifyPropertyChangedViewModel
 
     public ObservableCollection<BootstrapperIconEntry> Icons { get; set; } = new ObservableCollection<BootstrapperIconEntry>();
 
+    // Same set of built-in icons as Icons above, but the "Custom" entry's
+    // preview reads RobloxIconCustomLocation instead of
+    // BootstrapperIconCustomLocation - this backs the Roblox window icon
+    // picker, not Fedestrap's own bootstrapper icon picker.
+    public ObservableCollection<BootstrapperIconEntry> RobloxIcons { get; set; } = new ObservableCollection<BootstrapperIconEntry>();
+
     public BootstrapperIcon Icon
     {
         get
@@ -1208,7 +1214,7 @@ public class AppearanceViewModel : NotifyPropertyChangedViewModel
             App.Settings.Prop.RobloxIconCustomLocation = value;
             App.Settings.SaveDeferred();
             OnPropertyChanged("RobloxIconSelection");
-            OnPropertyChanged("Icons");
+            OnPropertyChanged("RobloxIcons");
             OnPropertyChanged("RobloxCustomIconLocation");
         }
     }
@@ -1356,6 +1362,11 @@ public class AppearanceViewModel : NotifyPropertyChangedViewModel
             Icons.Add(new BootstrapperIconEntry
             {
                 IconType = selection
+            });
+            RobloxIcons.Add(new BootstrapperIconEntry
+            {
+                IconType = selection,
+                UseRobloxCustomIcon = true
             });
         }
         PopulateCustomThemes();

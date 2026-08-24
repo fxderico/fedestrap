@@ -198,6 +198,9 @@
             </ItemsControl.ItemTemplate>
           </ComboBox>
         </controls:OptionControl>
+        <controls:OptionControl Description="Forces Roblox's own UI (menus, chat, everything outside the game) to use dark mode, regardless of your system theme." Header="Force Roblox dark mode">
+          <ui:ToggleSwitch IsChecked="{Binding EnableDarkMode, Mode=TwoWay}" />
+        </controls:OptionControl>
       </StackPanel>
     </ui:CardExpander>
     <StackPanel Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
