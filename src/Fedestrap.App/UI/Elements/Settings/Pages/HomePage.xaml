@@ -226,7 +226,7 @@
                                         <Border CornerRadius="26" ClipToBounds="True">
                                             <Grid>
                                                 <ui:SymbolIcon Symbol="Person24" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#66FFFFFF" />
-                                                <Border x:Name="WebsiteAvatarImageBorder" Visibility="Collapsed">
+                                                <Border x:Name="WebsiteAvatarImageBorder" CornerRadius="26" Visibility="Collapsed">
                                                     <Border.Background>
                                                         <ImageBrush x:Name="WebsiteAvatarBrush" Stretch="UniformToFill" />
                                                     </Border.Background>

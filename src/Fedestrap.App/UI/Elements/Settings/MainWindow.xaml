@@ -256,7 +256,7 @@
               <Border CornerRadius="9" ClipToBounds="True">
                 <Grid>
                   <ui:SymbolIcon Symbol="Person24" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                  <Border x:Name="AccountAvatarImageBorder" Visibility="Collapsed">
+                  <Border x:Name="AccountAvatarImageBorder" CornerRadius="9" Visibility="Collapsed">
                     <Border.Background>
                       <ImageBrush x:Name="AccountAvatarBrush" Stretch="UniformToFill" />
                     </Border.Background>
@@ -296,7 +296,7 @@
             <Border Grid.Column="0" Width="42" Height="42" CornerRadius="21" ClipToBounds="True" Background="{DynamicResource ControlFillColorSecondaryBrush}">
               <Grid>
                 <ui:SymbolIcon Symbol="Person24" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                <Border x:Name="AccountPopupAvatarImageBorder" Visibility="Collapsed">
+                <Border x:Name="AccountPopupAvatarImageBorder" CornerRadius="21" Visibility="Collapsed">
                   <Border.Background>
                     <ImageBrush x:Name="AccountPopupAvatarBrush" Stretch="UniformToFill" />
                   </Border.Background>
