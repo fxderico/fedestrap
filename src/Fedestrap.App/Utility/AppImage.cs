@@ -61,6 +61,30 @@ namespace Fedestrap.Utility
                 && (url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || url.StartsWith("https://", StringComparison.OrdinalIgnoreCase));
         }
 
+        // Profile avatars and banners come back from the API as embedded
+        // data: URIs (base64), not links to fetch. Decode them locally
+        // instead of treating them like a normal download candidate, since
+        // an HTTP request against a data: URI just fails.
+        private static byte[]? TryDecodeDataUri(string url)
+        {
+            if (string.IsNullOrEmpty(url) || !url.StartsWith("data:", StringComparison.OrdinalIgnoreCase))
+                return null;
+            int comma = url.IndexOf(',');
+            if (comma < 0)
+                return null;
+            string header = url.Substring(0, comma);
+            if (header.IndexOf(";base64", StringComparison.OrdinalIgnoreCase) < 0)
+                return null;
+            try
+            {
+                return Convert.FromBase64String(url.Substring(comma + 1));
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public static string? ResolveAsset(string url)
         {
             if (StaticAssets.TryGetValue(url ?? string.Empty, out string asset))
@@ -103,6 +127,12 @@ namespace Fedestrap.Utility
         {
             if (string.IsNullOrEmpty(url))
                 return null;
+            byte[]? dataUriBytes = TryDecodeDataUri(url);
+            if (dataUriBytes != null)
+            {
+                try { return SafeImaging.FromBytes(dataUriBytes, decodeWidth); }
+                catch { return null; }
+            }
             foreach (string candidate in GetCandidates(url, decodeWidth))
             {
                 try
@@ -132,6 +162,15 @@ namespace Fedestrap.Utility
 
         public static async Task<BitmapSource?> LoadAsync(string url, int decodeWidth = 0, CancellationToken ct = default)
         {
+            byte[]? dataUriBytes = TryDecodeDataUri(url);
+            if (dataUriBytes != null)
+            {
+                return await Task.Run(delegate
+                {
+                    try { return SafeImaging.FromBytes(dataUriBytes, decodeWidth); }
+                    catch { return null; }
+                }, ct).ConfigureAwait(false);
+            }
             foreach (string candidate in GetCandidates(url, decodeWidth))
             {
                 if (ct.IsCancellationRequested)
@@ -160,6 +199,9 @@ namespace Fedestrap.Utility
         {
             if (string.IsNullOrEmpty(url))
                 return null;
+            byte[]? dataUriBytes = TryDecodeDataUri(url);
+            if (dataUriBytes != null)
+                return dataUriBytes;
             if (ByteCache.TryGetValue(url, out byte[]? cached))
                 return cached;
             if (IsImageProxyUrl(url) && Environment.TickCount64 < Interlocked.Read(ref _proxyBlockedUntil))

@@ -58,6 +58,8 @@ namespace Fedestrap.UI.Elements.Settings.Pages
                         Interlocked.Increment(ref _avatarGeneration);
                         if (WebsiteAvatarBrush is not null)
                             WebsiteAvatarBrush.ImageSource = null;
+                        if (WebsiteAvatarImageBorder is not null)
+                            WebsiteAvatarImageBorder.Visibility = Visibility.Collapsed;
                         return;
                     }
                     CancellationTokenSource? lifetimeCts = _lifetimeCts;
@@ -71,7 +73,11 @@ namespace Fedestrap.UI.Elements.Settings.Pages
                     await Dispatcher.InvokeAsync(() =>
                     {
                         if (generation == Volatile.Read(ref _avatarGeneration) && !lifetimeCts.IsCancellationRequested && WebsiteAvatarBrush is not null)
+                        {
                             WebsiteAvatarBrush.ImageSource = bitmap;
+                            if (WebsiteAvatarImageBorder is not null)
+                                WebsiteAvatarImageBorder.Visibility = Visibility.Visible;
+                        }
                     });
                 }
                 else if (e.PropertyName == nameof(HomePageViewModel.WebsiteBorderBrush))

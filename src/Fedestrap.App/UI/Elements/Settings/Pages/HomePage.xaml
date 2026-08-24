@@ -224,9 +224,14 @@
                                     <Border Width="52" Height="52" CornerRadius="26"
                                             Padding="2" Background="#0A0A0A">
                                         <Border CornerRadius="26" ClipToBounds="True">
-                                            <Border.Background>
-                                                <ImageBrush x:Name="WebsiteAvatarBrush" Stretch="UniformToFill" />
-                                            </Border.Background>
+                                            <Grid>
+                                                <ui:SymbolIcon Symbol="Person24" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#66FFFFFF" />
+                                                <Border x:Name="WebsiteAvatarImageBorder" Visibility="Collapsed">
+                                                    <Border.Background>
+                                                        <ImageBrush x:Name="WebsiteAvatarBrush" Stretch="UniformToFill" />
+                                                    </Border.Background>
+                                                </Border>
+                                            </Grid>
                                         </Border>
                                     </Border>
                                 </Border>

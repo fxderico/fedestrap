@@ -3454,6 +3454,7 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
         PopulateTopSearch();
         RefreshAccountUi();
         ApplyUiZoom();
+        UpdateTopNavMaxWidth();
         Dispatcher.BeginInvoke(new Action(LogContentDiagnostics), System.Windows.Threading.DispatcherPriority.ApplicationIdle);
         LoadSidebarWidth();
         SetupNavShortcuts();
@@ -4034,7 +4035,7 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
     {
         try
         {
-            // This popup is the Fedestrap account (sign in/out, profile) - it
+            // This popup is the Fedestrap account (sign in/out, profile). It
             // must never read the local Roblox account/cookie.
             Fedestrap.Utility.WebsiteProfileData? account = Fedestrap.Utility.WebsiteAuth.IsSignedIn()
                 ? await Fedestrap.Utility.WebsiteProfileEditor.LoadAsync().ConfigureAwait(false)
@@ -4070,6 +4071,22 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
             if (account != null && !string.IsNullOrWhiteSpace(account.Avatar))
             {
                 await LoadAvatarAsync(account.Avatar);
+            }
+            else
+            {
+                await ((DispatcherObject)this).Dispatcher.InvokeAsync((Action)delegate
+                {
+                    if (_isClosed)
+                        return;
+                    if (AccountAvatarBrush != null)
+                        AccountAvatarBrush.ImageSource = null;
+                    if (AccountAvatarImageBorder != null)
+                        AccountAvatarImageBorder.Visibility = Visibility.Collapsed;
+                    if (AccountPopupAvatarBrush != null)
+                        AccountPopupAvatarBrush.ImageSource = null;
+                    if (AccountPopupAvatarImageBorder != null)
+                        AccountPopupAvatarImageBorder.Visibility = Visibility.Collapsed;
+                });
             }
             await LoadAccountBorderAsync();
         }
@@ -4681,10 +4698,14 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
                 if (AccountAvatarBrush != null)
                 {
                     AccountAvatarBrush.ImageSource = bitmap;
+                    if (AccountAvatarImageBorder != null)
+                        AccountAvatarImageBorder.Visibility = Visibility.Visible;
                 }
                 if (AccountPopupAvatarBrush != null)
                 {
                     AccountPopupAvatarBrush.ImageSource = bitmap;
+                    if (AccountPopupAvatarImageBorder != null)
+                        AccountPopupAvatarImageBorder.Visibility = Visibility.Visible;
                 }
             });
         }
@@ -4697,6 +4718,21 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
     {
         RepositionAccountPopup();
         ApplyUiZoom();
+        UpdateTopNavMaxWidth();
+    }
+
+    // The top nav (back/forward/home/library/community) and the title bar's
+    // search box and icons live in the same row and aren't otherwise aware
+    // of each other's width, so on a narrow window they can grow into one
+    // another. Cap the nav's width so it clips instead of overlapping.
+    private const double TopNavReservedRightWidth = 640.0;
+
+    private void UpdateTopNavMaxWidth()
+    {
+        if (TopNavPanel == null)
+            return;
+        double available = ActualWidth - TopNavReservedRightWidth;
+        TopNavPanel.MaxWidth = Math.Max(120.0, available);
     }
 
     protected override void OnActivated(EventArgs e)
