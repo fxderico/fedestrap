@@ -23,7 +23,7 @@
 
 > [!NOTE]
 > Fedestrap is a custom bootstrapper for Roblox, personally maintained for
-> Fede, built on the [Bloxstrap][bloxstrap] → [Fishstrap][fishstrap] →
+> me, built on the [Bloxstrap][bloxstrap] → [Fishstrap][fishstrap] →
 > [Voidstrap][voidstrap] lineage. It currently targets **Windows 10 and
 > above**; the codebase carries cross-platform scaffolding for macOS and
 > Linux inherited from Voidstrap, but those targets aren't actively
