@@ -1,7 +1,7 @@
 ﻿<Project>
 
 	<PropertyGroup>
-		<FedestrapVersion>1.4.3.0</FedestrapVersion>
+		<FedestrapVersion>1.4.4.0</FedestrapVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>

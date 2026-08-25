@@ -36,6 +36,12 @@ public sealed class WebsiteFlagProfile
     public string FlagCount => Flags.Count == 1 ? "1 flag" : Flags.Count + " flags";
 
     [JsonIgnore]
+    public string HotkeyLabel =>
+        !IsCloud && App.Settings.Prop.LocalProfileKeybinds.TryGetValue(LocalFileName, out string? bound) && !string.IsNullOrEmpty(bound)
+            ? bound
+            : "Set hotkey";
+
+    [JsonIgnore]
     public string UpdatedText
     {
         get

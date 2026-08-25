@@ -219,6 +219,7 @@
       </Control.Background>
     </ui:Snackbar>
     <ui:Snackbar Name="SettingFailureSnackbar" Title="Setting not changed" Grid.RowSpan="10" Margin="180,0,180,20" Panel.ZIndex="11" Icon="ErrorCircle24" Timeout="5000" />
+    <ui:Snackbar Name="ProfileHotkeySnackbar" Title="Flag profile applied" Grid.RowSpan="10" Margin="180,0,180,20" Panel.ZIndex="12" Icon="Flag24" Timeout="4000" />
     <ui:TitleBar Name="RootTitleBar" Padding="8" Grid.Row="0" Panel.ZIndex="1000" ForceShutdown="False" MinimizeToTray="False" UseSnapLayout="True">
       <ui:TitleBar.Header>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" FlowDirection="LeftToRight">

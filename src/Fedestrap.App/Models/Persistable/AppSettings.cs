@@ -61,6 +61,11 @@ namespace Fedestrap.Models.Persistable
         public bool AssetWarpPreloadCrossGame { get; set; } = true;
         public bool AssetWarpPreloadFlagsOwned { get; set; }
         public Dictionary<string, string?> AssetWarpPreloadFlagBackup { get; set; } = [];
+        // Local FastFlag profile file name -> "Ctrl+Alt+F1" style hotkey string.
+        // Pressing the hotkey applies that profile's flags for the next Roblox
+        // launch, while Fedestrap itself is running. Cloud profiles aren't
+        // covered, since they aren't tied to a stable local file name.
+        public Dictionary<string, string> LocalProfileKeybinds { get; set; } = [];
         public bool BlockRobloxTelemetry { get; set; }
         public bool RobloxMinimizeToTray { get; set; }
         public bool RobloxLaunchAtStartup { get; set; }

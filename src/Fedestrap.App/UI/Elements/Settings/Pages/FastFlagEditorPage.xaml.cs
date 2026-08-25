@@ -746,6 +746,12 @@ public partial class FastFlagEditorPage : UiPage
 		{
 			return;
 		}
+		string? typeWarning = Fedestrap.Utility.FastFlagTypeHelper.Validate(name, value);
+		if (typeWarning != null &&
+			Frontend.ShowMessageBox(typeWarning + "\n\nAdd it anyway?", MessageBoxImage.Asterisk, MessageBoxButton.YesNo, MessageBoxResult.No) != MessageBoxResult.Yes)
+		{
+			return;
+		}
 		if (App.FastFlags.GetValue(name) == null)
 		{
 			App.FastFlags.SetValue(name, value);

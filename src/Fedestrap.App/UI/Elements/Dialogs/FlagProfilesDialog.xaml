@@ -2,6 +2,7 @@
   <FrameworkElement.Resources>
     <ResourceDictionary>
       <converters:RangeConverter x:Key="ValidationConverter" From="0" />
+      <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </ResourceDictionary>
   </FrameworkElement.Resources>
   <Grid>
@@ -50,7 +51,21 @@
           </StackPanel>
         </TabItem.Header>
         <Grid Margin="10">
-          <ListView Name="LoadBackup" MinHeight="180" MaxHeight="260" DisplayMemberPath="Name" SelectionChanged="LoadBackup_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+          <ListView Name="LoadBackup" MinHeight="180" MaxHeight="260" SelectionChanged="LoadBackup_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <Grid Margin="0,2">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                  <ui:Button Grid.Column="1" Padding="8,3" FontSize="11" Appearance="Secondary" Visibility="{Binding IsCloud, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                             Content="{Binding HotkeyLabel}" Click="ProfileHotkey_Click" Tag="{Binding}" />
+                </Grid>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+          </ListView>
           <TextBlock Name="EmptyProfiles" Margin="18,14,0,0" Foreground="#FFA9A9A9" IsHitTestVisible="False" Text="No saved profiles" />
         </Grid>
       </TabItem>

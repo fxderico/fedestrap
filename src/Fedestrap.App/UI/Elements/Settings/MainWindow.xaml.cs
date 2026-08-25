@@ -516,6 +516,18 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
     {
         base.OnSourceInitialized(e);
         Fedestrap.UI.WindowBackdrop.ApplyMainWindow(this);
+        Fedestrap.Integrations.GlobalHotkeys.GlobalHotkeyManager.Initialize(this);
+        Fedestrap.Utility.LocalProfileHotkeys.RegisterAll();
+    }
+
+    // Fires when a global hotkey bound to a local flag profile is pressed.
+    // See LocalProfileHotkeys; this only reports it, it never applies flags itself.
+    public void ShowProfileHotkeyAppliedSnackbar(string profileName, int flagCount)
+    {
+        if (ProfileHotkeySnackbar == null)
+            return;
+        ProfileHotkeySnackbar.Message = "Applied '" + profileName + "' (" + flagCount + " flag" + (flagCount == 1 ? "" : "s") + "). Restart Roblox to pick it up.";
+        ProfileHotkeySnackbar.Show();
     }
 
     private void ApplyThemeBackground()
@@ -5199,6 +5211,7 @@ public partial class MainWindow : WpfUiWindow, INavigationWindow
             return;
         _isClosed = true;
 		Interlocked.Increment(ref _topSearchNavigationGeneration);
+        Fedestrap.Integrations.GlobalHotkeys.GlobalHotkeyManager.Shutdown();
         ReleaseZoomIndicator();
         _backgroundGeneration++;
         foreach (TaskCompletionSource<bool> waiter in _backgroundAnimationWaiters.Values)

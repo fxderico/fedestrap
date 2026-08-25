@@ -214,6 +214,37 @@ public partial class FlagProfilesDialog : WpfUiWindow
         UpdateState();
     }
 
+    private void ProfileHotkey_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement element || element.Tag is not WebsiteFlagProfile profile || profile.IsCloud)
+            return;
+        App.Settings.Prop.LocalProfileKeybinds.TryGetValue(profile.LocalFileName, out string? current);
+        HotkeyCaptureDialog dialog = new HotkeyCaptureDialog(profile.Name, current, candidate =>
+                App.Settings.Prop.LocalProfileKeybinds.Any(pair => pair.Key != profile.LocalFileName && pair.Value == candidate))
+        {
+            Owner = this
+        };
+        if (dialog.ShowDialog() != true)
+            return;
+        LocalProfileHotkeys.Unregister(profile.LocalFileName);
+        if (dialog.Cleared || string.IsNullOrEmpty(dialog.ResultHotkey))
+        {
+            App.Settings.Prop.LocalProfileKeybinds.Remove(profile.LocalFileName);
+        }
+        else
+        {
+            App.Settings.Prop.LocalProfileKeybinds[profile.LocalFileName] = dialog.ResultHotkey;
+            LocalProfileHotkeys.RegisterOne(profile.LocalFileName, dialog.ResultHotkey);
+        }
+        App.Settings.SaveDeferred();
+        int index = _profiles.IndexOf(profile);
+        if (index >= 0)
+        {
+            _profiles[index] = profile;
+            LoadBackup.Items.Refresh();
+        }
+    }
+
     private void Tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         UpdateState();

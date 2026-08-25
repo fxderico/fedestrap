@@ -1,0 +1,37 @@
+<base:WpfUiWindow x:Class="Fedestrap.UI.Elements.Dialogs.HotkeyCaptureDialog" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:base="clr-namespace:Fedestrap.UI.Elements.Base" xmlns:resources="clr-namespace:Fedestrap.Resources" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" Title="Set hotkey" Width="380" MinHeight="0" ExtendsContentIntoTitleBar="True" ResizeMode="NoResize" SizeToContent="Height" WindowStartupLocation="CenterOwner" Background="{ui:ThemeResource ApplicationBackgroundBrush}">
+  <Grid>
+    <Panel.Background>
+      <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+        <GradientStop Offset="0.00" Color="{DynamicResource WindowBackgroundColorPrimary}" />
+        <GradientStop Offset="0.80" Color="{DynamicResource WindowBackgroundColorSecondary}" />
+        <GradientStop Offset="1.10" Color="{DynamicResource WindowBackgroundColorThird}" />
+      </LinearGradientBrush>
+    </Panel.Background>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <ui:TitleBar Grid.Row="0" Padding="8" CanMaximize="False" KeyboardNavigation.TabNavigation="None" ShowMaximize="False" ShowMinimize="False" Title="Set hotkey" />
+
+    <StackPanel Grid.Row="1" Margin="16">
+      <TextBlock Margin="0,0,0,4" FontWeight="SemiBold" Name="ProfileNameText" TextWrapping="Wrap" />
+      <TextBlock Margin="0,0,0,10" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="Applies this profile's flags for the next Roblox launch, while Fedestrap is running. It doesn't change flags in a game that's already open." />
+      <Border Height="44" Padding="10,0" Background="{DynamicResource ControlFillColorSecondaryBrush}" BorderThickness="1" BorderBrush="{DynamicResource ControlElevationBorderBrush}" CornerRadius="6" Focusable="True" PreviewKeyDown="CaptureBorder_PreviewKeyDown" MouseLeftButtonDown="CaptureBorder_MouseLeftButtonDown" Name="CaptureBorder">
+        <TextBlock Name="CapturedText" VerticalAlignment="Center" FontSize="14" Text="Click here, then press a key combination" />
+      </Border>
+      <TextBlock Name="ConflictText" Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#FFEF4444" Visibility="Collapsed" />
+    </StackPanel>
+
+    <Border Grid.Row="2" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
+      <Grid>
+        <Button HorizontalAlignment="Left" MinWidth="90" Content="Clear" Click="OnClearClicked" />
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+          <Button Name="SaveButton" MinWidth="90" Content="{x:Static resources:Strings.Common_OK}" IsEnabled="False" Click="OnSaveClicked" />
+          <Button MinWidth="90" Margin="12,0,0,0" Content="{x:Static resources:Strings.Common_Cancel}" IsCancel="True" />
+        </StackPanel>
+      </Grid>
+    </Border>
+  </Grid>
+</base:WpfUiWindow>
